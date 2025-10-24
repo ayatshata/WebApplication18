@@ -1,0 +1,118 @@
+﻿@page
+@model MughtaribatHouse.Pages.Admin.BackupModel
+@{
+    ViewData["Title"] = "النسخ الاحتياطي";
+    ViewData["ActivePage"] = "Admin";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">النسخ الاحتياطي</h1>
+    <button id="createBackup" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> إنشاء نسخة احتياطية
+    </button>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">النسخ الاحتياطية المتاحة</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>اسم الملف</th>
+                                <th>الحجم</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var backup in Model.BackupFiles)
+                            {
+                                <tr>
+                                    <td>@backup</td>
+                                    <td>--</td>
+                                    <td>@(backup)</td>
+                                    <td>
+                                        <button class="btn btn-success btn-sm restore-backup" data-file="@backup">
+                                            <i class="fas fa-undo"></i> استعادة
+                                        </button>
+                                        <button class="btn btn-danger btn-sm delete-backup" data-file="@backup">
+                                            <i class="fas fa-trash"></i> حذف
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                @if (!Model.BackupFiles.Any())
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-database fa-3x text-gray-300 mb-3"></i>
+                        <p class="text-muted">لا توجد نسخ احتياطية</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json"
+                },
+                "order": [[2, 'desc']]
+            });
+
+            $('#createBackup').click(function() {
+                if (confirm('هل تريد إنشاء نسخة احتياطية جديدة؟')) {
+                    $.post('/api/backup/create')
+                        .done(function(response) {
+                            alert('تم إنشاء النسخة الاحتياطية بنجاح');
+                            location.reload();
+                        })
+                        .fail(function() {
+                            alert('فشل في إنشاء النسخة الاحتياطية');
+                        });
+                }
+            });
+
+            $('.restore-backup').click(function() {
+                var fileName = $(this).data('file');
+                if (confirm('هل تريد استعادة النسخة الاحتياطية: ' + fileName + '؟')) {
+                    $.post('/api/backup/restore', { fileName: fileName })
+                        .done(function(response) {
+                            alert('تم استعادة النسخة الاحتياطية بنجاح');
+                            location.reload();
+                        })
+                        .fail(function() {
+                            alert('فشل في استعادة النسخة الاحتياطية');
+                        });
+                }
+            });
+
+            $('.delete-backup').click(function() {
+                var fileName = $(this).data('file');
+                if (confirm('هل تريد حذف النسخة الاحتياطية: ' + fileName + '؟')) {
+                    $.post('/api/backup/delete', { fileName: fileName })
+                        .done(function(response) {
+                            alert('تم حذف النسخة الاحتياطية بنجاح');
+                            location.reload();
+                        })
+                        .fail(function() {
+                            alert('فشل في حذف النسخة الاحتياطية');
+                        });
+                }
+            });
+        });
+    </script>
+}

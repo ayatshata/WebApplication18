@@ -1,0 +1,101 @@
+﻿@page
+@model MughtaribatHouse.Pages.Settings.IndexModel
+@{
+    ViewData["Title"] = "الإعدادات";
+    ViewData["ActivePage"] = "Settings";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">الإعدادات</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">الإعدادات العامة</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label>اسم المؤسسة</label>
+                        <input type="text" class="form-control" value="بيت المقتربات" readonly>
+                    </div>
+
+                    <div class="form-group">
+                        <label>البريد الإلكتروني للإشعارات</label>
+                        <input type="email" class="form-control" value="admin@mughtaribathouse.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>رقم هاتف الاتصال</label>
+                        <input type="text" class="form-control" value="+966500000000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>تذكير المدفوعات (أيام قبل الاستحقاق)</label>
+                        <select class="form-control">
+                            <option>3 أيام</option>
+                            <option selected>7 أيام</option>
+                            <option>14 يوم</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> حفظ الإعدادات
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">إجراءات النظام</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <button class="btn btn-warning btn-sm">
+                        <i class="fas fa-sync"></i> تحديث قاعدة البيانات
+                    </button>
+                    <button class="btn btn-info btn-sm">
+                        <i class="fas fa-download"></i> تصدير البيانات
+                    </button>
+                    <button class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> مسح البيانات المؤقتة
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معلومات النظام</h6>
+            </div>
+            <div class="card-body">
+                <dl>
+                    <dt>إصدار النظام:</dt>
+                    <dd>1.0.0</dd>
+
+                    <dt>آخر تحديث:</dt>
+                    <dd>@DateTime.Now.ToString("yyyy/MM/dd")</dd>
+
+                    <dt>حجم قاعدة البيانات:</dt>
+                    <dd>~15 MB</dd>
+
+                    <dt>عدد المستخدمين:</dt>
+                    <dd>@Model.TotalUsers</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Add any settings page specific JavaScript here
+        });
+    </script>
+}

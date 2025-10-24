@@ -1,0 +1,251 @@
+﻿@page
+@model MughtaribatHouse.Pages.Docs.IndexModel
+@{
+    ViewData["Title"] = "إدارة المستندات";
+    ViewData["ActivePage"] = "Docs";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">المستندات والملفات</h1>
+    <a asp-page="Create" class="btn btn-primary btn-sm">
+        <i class="fas fa-upload"></i> رفع مستند جديد
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">جميع المستندات</h6>
+            </div>
+            <div class="card-body">
+                <!-- Filters -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <select class="form-control" id="categoryFilter">
+                            <option value="">جميع التصنيفات</option>
+                            <option value="Contract">عقود</option>
+                            <option value="Report">تقارير</option>
+                            <option value="Invoice">فواتير</option>
+                            <option value="Identity">هويات</option>
+                            <option value="License">رخص</option>
+                            <option value="Certificate">شهادات</option>
+                            <option value="Other">أخرى</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-control" id="residentFilter">
+                            <option value="">جميع المقيمين</option>
+                            @foreach (var resident in Model.Residents)
+                            {
+                                <option value="@resident.Id">@resident.FullName - @resident.RoomNumber</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="searchInput" placeholder="بحث في المستندات...">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-outline-secondary btn-block" id="clearFilters">
+                            <i class="fas fa-times"></i> مسح
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Documents Table -->
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="documentsTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>المستند</th>
+                                <th>التصنيف</th>
+                                <th>المقيم</th>
+                                <th>الحجم</th>
+                                <th>تاريخ الرفع</th>
+                                <th>الصلاحية</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var doc in Model.Documents)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas @GetFileIcon(doc.FileType) text-primary mr-2"></i>
+                                            <div>
+                                                <strong>@doc.Title</strong>
+                                                @if (!string.IsNullOrEmpty(doc.Description))
+                                                {
+                                                    <br>
+                                                    <small class="text-muted">@doc.Description</small>
+                                                }
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-info">@GetCategoryName(doc.Category)</span>
+                                    </td>
+                                    <td>
+                                        @if (doc.Resident != null)
+                                        {
+                                            <span>@doc.Resident.FullName</span>
+                                            <br>
+                                            <small class="text-muted">@doc.Resident.RoomNumber</small>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">-</span>
+                                        }
+                                    </td>
+                                    <td>@FormatFileSize(doc.FileSize)</td>
+                                    <td>@doc.UploadedAt.ToString("yyyy/MM/dd HH:mm")</td>
+                                    <td>
+                                        @if (doc.IsPublic)
+                                        {
+                                            <span class="badge badge-success">عام</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-secondary">خاص</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="/api/docs/download/@doc.Id" class="btn btn-info btn-sm" title="تحميل">
+                                                <i class="fas fa-download"></i>
+                                            </a>
+                                            <a asp-page="Details" asp-route-id="@doc.Id" class="btn btn-primary btn-sm" title="تفاصيل">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a asp-page="Edit" asp-route-id="@doc.Id" class="btn btn-warning btn-sm" title="تعديل">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button class="btn btn-danger btn-sm delete-document" data-id="@doc.Id" data-title="@doc.Title" title="حذف">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                @if (!Model.Documents.Any())
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-file fa-3x text-gray-300 mb-3"></i>
+                        <p class="text-muted">لا توجد مستندات</p>
+                        <a asp-page="Create" class="btn btn-primary">
+                            <i class="fas fa-upload"></i> رفع أول مستند
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTable
+            var table = $('#documentsTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json"
+                },
+                "pageLength": 25
+            });
+
+            // Category filter
+            $('#categoryFilter').on('change', function() {
+                table.column(1).search(this.value).draw();
+            });
+
+            // Resident filter
+            $('#residentFilter').on('change', function() {
+                table.column(2).search(this.value).draw();
+            });
+
+            // Search input
+            $('#searchInput').on('keyup', function() {
+                table.search(this.value).draw();
+            });
+
+            // Clear filters
+            $('#clearFilters').on('click', function() {
+                $('#categoryFilter').val('');
+                $('#residentFilter').val('');
+                $('#searchInput').val('');
+                table.search('').columns().search('').draw();
+            });
+
+            // Delete document
+            $('.delete-document').on('click', function() {
+                var documentId = $(this).data('id');
+                var documentTitle = $(this).data('title');
+
+                if (confirm(`هل تريد حذف المستند "${documentTitle}"؟`)) {
+                    $.ajax({
+                        url: '/api/docs/' + documentId,
+                        type: 'DELETE',
+                        success: function(response) {
+                            if (response.success) {
+                                location.reload();
+                            } else {
+                                alert('فشل في حذف المستند: ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('فشل في حذف المستند');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+@functions {
+    public string GetFileIcon(string fileType)
+    {
+        return fileType.ToLower() switch
+        {
+            ".pdf" => "fa-file-pdf",
+            ".doc" or ".docx" => "fa-file-word",
+            ".xls" or ".xlsx" => "fa-file-excel",
+            ".jpg" or ".jpeg" or ".png" or ".gif" => "fa-file-image",
+            ".txt" => "fa-file-alt",
+            _ => "fa-file"
+        };
+    }
+
+    public string GetCategoryName(string category)
+    {
+        return category switch
+        {
+            "Contract" => "عقد",
+            "Report" => "تقرير",
+            "Invoice" => "فاتورة",
+            "Identity" => "هوية",
+            "License" => "رخصة",
+            "Certificate" => "شهادة",
+            "Other" => "أخرى",
+            _ => category
+        };
+    }
+
+    public string FormatFileSize(long bytes)
+    {
+        string[] sizes = { "B", "KB", "MB", "GB" };
+        double len = bytes;
+        int order = 0;
+        while (len >= 1024 && order < sizes.Length - 1)
+        {
+            order++;
+            len /= 1024;
+        }
+        return $"{len:0.##} {sizes[order]}";
+    }
+}

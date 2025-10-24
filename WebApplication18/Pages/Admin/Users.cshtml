@@ -1,0 +1,76 @@
+﻿@page
+@model MughtaribatHouse.Pages.Admin.UsersModel
+@{
+    ViewData["Title"] = "إدارة المستخدمين";
+    ViewData["ActivePage"] = "Admin";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">إدارة المستخدمين</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">جميع المستخدمين</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>البريد الإلكتروني</th>
+                                <th>رقم الجوال</th>
+                                <th>الدور</th>
+                                <th>الحالة</th>
+                                <th>تاريخ التسجيل</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.Users)
+                            {
+                                <tr>
+                                    <td>@user.FullName</td>
+                                    <td>@user.Email</td>
+                                    <td>@user.PhoneNumber</td>
+                                    <td>
+                                        @foreach (var role in Model.UserRoles[user.Id])
+                                        {
+                                            <span class="badge badge-primary">@role</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <span class="badge @(user.IsActive ? "badge-success" : "badge-danger")">
+                                            @(user.IsActive ? "نشط" : "غير نشط")
+                                        </span>
+                                    </td>
+                                    <td>@user.CreatedAt.ToString("yyyy/MM/dd")</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm edit-user" data-id="@user.Id">
+                                            <i class="fas fa-edit"></i> تعديل
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json"
+                }
+            });
+        });
+    </script>
+}

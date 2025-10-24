@@ -1,0 +1,257 @@
+﻿@page
+@model MughtaribatHouse.Pages.Docs.DetailsModel
+@{
+    ViewData["Title"] = "تفاصيل المستند";
+    ViewData["ActivePage"] = "Docs";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">تفاصيل المستند</h1>
+    <div>
+        <a asp-page="Index" class="btn btn-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> رجوع
+        </a>
+        <a asp-page="Edit" asp-route-id="@Model.Document.Id" class="btn btn-warning btn-sm">
+            <i class="fas fa-edit"></i> تعديل
+        </a>
+        <a href="/api/docs/download/@Model.Document.Id" class="btn btn-info btn-sm">
+            <i class="fas fa-download"></i> تحميل
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معلومات المستند</h6>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">العنوان:</dt>
+                    <dd class="col-sm-9">@Model.Document.Title</dd>
+
+                    <dt class="col-sm-3">الوصف:</dt>
+                    <dd class="col-sm-9">@(string.IsNullOrEmpty(Model.Document.Description) ? "-" : Model.Document.Description)</dd>
+
+                    <dt class="col-sm-3">التصنيف:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge badge-info">@GetCategoryName(Model.Document.Category)</span>
+                    </dd>
+
+                    <dt class="col-sm-3">نوع الملف:</dt>
+                    <dd class="col-sm-9">
+                        <i class="fas @GetFileIcon(Model.Document.FileType)"></i> @Model.Document.FileType
+                    </dd>
+
+                    <dt class="col-sm-3">حجم الملف:</dt>
+                    <dd class="col-sm-9">@FormatFileSize(Model.Document.FileSize)</dd>
+
+                    <dt class="col-sm-3">المقيم:</dt>
+                    <dd class="col-sm-9">
+                        @if (Model.Document.Resident != null)
+                        {
+                            <span>@Model.Document.Resident.FullName</span>
+                            <br>
+                            <small class="text-muted">الغرفة: @Model.Document.Resident.RoomNumber</small>
+                        }
+                        else
+                        {
+                            <span class="text-muted">-</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3">مرفوع بواسطة:</dt>
+                    <dd class="col-sm-9">@Model.Document.UploadedByUser?.FullName</dd>
+
+                    <dt class="col-sm-3">تاريخ الرفع:</dt>
+                    <dd class="col-sm-9">@Model.Document.UploadedAt.ToString("yyyy/MM/dd HH:mm")</dd>
+
+                    <dt class="col-sm-3">آخر تحديث:</dt>
+                    <dd class="col-sm-9">
+                        @(Model.Document.UpdatedAt?.ToString("yyyy/MM/dd HH:mm") ?? "-")
+                    </dd>
+
+                    <dt class="col-sm-3">الصلاحية:</dt>
+                    <dd class="col-sm-9">
+                        @if (Model.Document.IsPublic)
+                        {
+                            <span class="badge badge-success">عام</span>
+                            <small class="text-muted">(يمكن للجميع رؤيته)</small>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">خاص</span>
+                            <small class="text-muted">(خاص بك فقط)</small>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3">العلامات:</dt>
+                    <dd class="col-sm-9">
+                        @if (!string.IsNullOrEmpty(Model.Document.Tags))
+                        {
+                            foreach (var tag in Model.Document.Tags.Split(','))
+                            {
+                                <span class="badge badge-light mr-1">@tag.Trim()</span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-muted">-</span>
+                        }
+                    </dd>
+
+                    <dt class="col-sm-3">الحالة:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge @GetStatusBadge(Model.Document.Status)">@GetStatusName(Model.Document.Status)</span>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- File Preview -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معاينة الملف</h6>
+            </div>
+            <div class="card-body text-center">
+                @if (Model.Document.IsImage)
+                {
+                    <img src="/api/docs/download/@Model.Document.Id" class="img-fluid" alt="@Model.Document.Title" style="max-height: 300px;">
+                }
+                else
+                {
+                    <div class="file-preview">
+                        <i class="fas @GetFileIcon(Model.Document.FileType) fa-5x text-primary mb-3"></i>
+                        <h5>@Model.Document.Title</h5>
+                        <p class="text-muted">@Model.Document.FileType.ToUpper() • @FormatFileSize(Model.Document.FileSize)</p>
+                    </div>
+                }
+
+                <div class="mt-3">
+                    <a href="/api/docs/download/@Model.Document.Id" class="btn btn-primary btn-block">
+                        <i class="fas fa-download"></i> تحميل الملف
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">إجراءات سريعة</h6>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a asp-page="Edit" asp-route-id="@Model.Document.Id" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> تعديل المعلومات
+                    </a>
+                    <a href="/api/docs/download/@Model.Document.Id" class="btn btn-info btn-sm">
+                        <i class="fas fa-download"></i> تحميل
+                    </a>
+                    @if (Model.CanDelete)
+                    {
+                        <button class="btn btn-danger btn-sm delete-document" data-id="@Model.Document.Id" data-title="@Model.Document.Title">
+                            <i class="fas fa-trash"></i> حذف المستند
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('.delete-document').on('click', function() {
+                var documentId = $(this).data('id');
+                var documentTitle = $(this).data('title');
+
+                if (confirm(`هل تريد حذف المستند "${documentTitle}"؟`)) {
+                    $.ajax({
+                        url: '/api/docs/' + documentId,
+                        type: 'DELETE',
+                        success: function(response) {
+                            if (response.success) {
+                                window.location.href = '/Docs';
+                            } else {
+                                alert('فشل في حذف المستند: ' + response.message);
+                            }
+                        },
+                        error: function() {
+                            alert('فشل في حذف المستند');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+
+@functions {
+    public string GetFileIcon(string fileType)
+    {
+        return fileType.ToLower() switch
+        {
+            ".pdf" => "fa-file-pdf text-danger",
+            ".doc" or ".docx" => "fa-file-word text-primary",
+            ".xls" or ".xlsx" => "fa-file-excel text-success",
+            ".jpg" or ".jpeg" or ".png" or ".gif" => "fa-file-image text-info",
+            ".txt" => "fa-file-alt text-secondary",
+            _ => "fa-file text-gray-300"
+        };
+    }
+
+    public string GetCategoryName(string category)
+    {
+        return category switch
+        {
+            "Contract" => "عقد",
+            "Report" => "تقرير",
+            "Invoice" => "فاتورة",
+            "Identity" => "هوية",
+            "License" => "رخصة",
+            "Certificate" => "شهادة",
+            "Other" => "أخرى",
+            _ => category
+        };
+    }
+
+    public string GetStatusName(string status)
+    {
+        return status switch
+        {
+            "Active" => "نشط",
+            "Archived" => "مؤرشف",
+            "Deleted" => "محذوف",
+            _ => status
+        };
+    }
+
+    public string GetStatusBadge(string status)
+    {
+        return status switch
+        {
+            "Active" => "badge-success",
+            "Archived" => "badge-warning",
+            "Deleted" => "badge-danger",
+            _ => "badge-secondary"
+        };
+    }
+
+    public string FormatFileSize(long bytes)
+    {
+        string[] sizes = { "B", "KB", "MB", "GB" };
+        double len = bytes;
+        int order = 0;
+        while (len >= 1024 && order < sizes.Length - 1)
+        {
+            order++;
+            len /= 1024;
+        }
+        return $"{len:0.##} {sizes[order]}";
+    }
+}

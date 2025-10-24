@@ -1,0 +1,72 @@
+﻿@page
+@model MughtaribatHouse.Pages.Notifications.IndexModel
+@{
+    ViewData["Title"] = "الإشعارات";
+    ViewData["ActivePage"] = "Notifications";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">الإشعارات</h1>
+    <div>
+        <button id="markAllRead" class="btn btn-success btn-sm">
+            <i class="fas fa-check-double"></i>标记 الكل كمقروء
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">الإشعارات</h6>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    @foreach (var notification in Model.Notifications)
+                    {
+                        <div class="list-group-item list-group-item-action flex-column align-items-start
+                                        @(notification.IsRead ? "" : "list-group-item-primary")">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">
+                                    @if (!notification.IsRead)
+                                    {
+                                        <span class="badge badge-primary">جديد</span>
+                                    }
+                                    @notification.Title
+                                </h5>
+                                <small class="text-muted">@notification.CreatedAt.ToString("yyyy/MM/dd HH:mm")</small>
+                            </div>
+                            <p class="mb-1">@notification.Message</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">@notification.Type</small>
+                                <div>
+                                    @if (!notification.IsRead)
+                                    {
+                                        <button class="btn btn-sm btn-outline-success mark-read" data-id="@notification.Id">
+                                            <i class="fas fa-check"></i>标记 كمقروء
+                                        </button>
+                                    }
+                                    <button class="btn btn-sm btn-outline-danger delete-notification" data-id="@notification.Id">
+                                        <i class="fas fa-trash"></i> حذف
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                @if (!Model.Notifications.Any())
+                {
+                    <div class="text-center py-4">
+                        <i class="fas fa-bell fa-3x text-gray-300 mb-3"></i>
+                        <p class="text-muted">لا توجد إشعارات</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/notifications.js"></script>
+}

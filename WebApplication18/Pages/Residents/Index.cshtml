@@ -1,0 +1,79 @@
+﻿@page
+@model MughtaribatHouse.Pages.Residents.IndexModel
+@{
+    ViewData["Title"] = "إدارة المقيمين";
+    ViewData["ActivePage"] = "Residents";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">المقيمين</h1>
+    <a asp-page="Create" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> إضافة مقيم جديد
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">جميع المقيمين</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>الاسم</th>
+                                <th>رقم الهوية</th>
+                                <th>رقم الجوال</th>
+                                <th>رقم الغرفة</th>
+                                <th>الإيجار الشهري</th>
+                                <th>الحالة</th>
+                                <th>تاريخ التسكين</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var resident in Model.Residents)
+                            {
+                                <tr>
+                                    <td>@resident.FullName</td>
+                                    <td>@resident.IdentityNumber</td>
+                                    <td>@resident.PhoneNumber</td>
+                                    <td>@resident.RoomNumber</td>
+                                    <td>@resident.MonthlyRent.ToString("C")</td>
+                                    <td>
+                                        <span class="badge @(resident.IsActive ? "badge-success" : "badge-danger")">
+                                            @(resident.IsActive ? "نشط" : "مغادر")
+                                        </span>
+                                    </td>
+                                    <td>@resident.CheckInDate.ToString("yyyy/MM/dd")</td>
+                                    <td>
+                                        <a asp-page="Details" asp-route-id="@resident.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i> تفاصيل
+                                        </a>
+                                        <a asp-page="Edit" asp-route-id="@resident.Id" class="btn btn-warning btn-sm">
+                                            <i class="fas fa-edit"></i> تعديل
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json"
+                }
+            });
+        });
+    </script>
+}

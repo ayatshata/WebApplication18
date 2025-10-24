@@ -1,0 +1,120 @@
+﻿@page
+@model MughtaribatHouse.Pages.Maintenance.DetailsModel
+@{
+    ViewData["Title"] = "تفاصيل طلب الصيانة";
+    ViewData["ActivePage"] = "Maintenance";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">تفاصيل طلب الصيانة</h1>
+    <a asp-page="Index" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left"></i> رجوع
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معلومات الطلب</h6>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">العنوان:</dt>
+                    <dd class="col-sm-9">@Model.MaintenanceTask.Title</dd>
+
+                    <dt class="col-sm-3">الوصف:</dt>
+                    <dd class="col-sm-9">@Model.MaintenanceTask.Description</dd>
+
+                    <dt class="col-sm-3">رقم الغرفة:</dt>
+                    <dd class="col-sm-9">@Model.MaintenanceTask.RoomNumber</dd>
+
+                    <dt class="col-sm-3">الأولوية:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge @GetPriorityBadgeClass(Model.MaintenanceTask.Priority)">
+                            @Model.MaintenanceTask.Priority
+                        </span>
+                    </dd>
+
+                    <dt class="col-sm-3">الحالة:</dt>
+                    <dd class="col-sm-9">
+                        <span class="badge @GetStatusBadgeClass(Model.MaintenanceTask.Status)">
+                            @Model.MaintenanceTask.Status
+                        </span>
+                    </dd>
+
+                    <dt class="col-sm-3">تاريخ التبليغ:</dt>
+                    <dd class="col-sm-9">@Model.MaintenanceTask.ReportedDate.ToString("yyyy/MM/dd HH:mm")</dd>
+
+                    <dt class="col-sm-3">مبلغ عنه بواسطة:</dt>
+                    <dd class="col-sm-9">@Model.MaintenanceTask.ReportedByUser?.FullName</dd>
+
+                    @if (!string.IsNullOrEmpty(Model.MaintenanceTask.AssignedTo))
+                    {
+                        <dt class="col-sm-3">معين إلى:</dt>
+                        <dd class="col-sm-9">@Model.MaintenanceTask.AssignedTo</dd>
+                    }
+
+                    @if (Model.MaintenanceTask.CompletedDate.HasValue)
+                    {
+                        <dt class="col-sm-3">تاريخ الإكمال:</dt>
+                        <dd class="col-sm-9">@Model.MaintenanceTask.CompletedDate.Value.ToString("yyyy/MM/dd HH:mm")</dd>
+                    }
+
+                    @if (Model.MaintenanceTask.Cost.HasValue)
+                    {
+                        <dt class="col-sm-3">التكلفة:</dt>
+                        <dd class="col-sm-9">@Model.MaintenanceTask.Cost.Value.ToString("C")</dd>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.MaintenanceTask.TechnicianNotes))
+                    {
+                        <dt class="col-sm-3">ملاحظات الفني:</dt>
+                        <dd class="col-sm-9">@Model.MaintenanceTask.TechnicianNotes</dd>
+                    }
+                </dl>
+
+                @if (Model.MaintenanceTask.Status != "Completed" && Model.MaintenanceTask.Status != "Cancelled")
+                {
+                    <form method="post" class="mt-4">
+                        <div class="form-group">
+                            <label for="status">تغيير الحالة:</label>
+                            <select name="status" class="form-control" onchange="this.form.submit()">
+                                <option value="">-- اختر الحالة --</option>
+                                <option value="InProgress">قيد التنفيذ</option>
+                                <option value="Completed">مكتمل</option>
+                                <option value="Cancelled">ملغى</option>
+                            </select>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetPriorityBadgeClass(string priority)
+    {
+        return priority switch
+        {
+            "Critical" => "badge-danger",
+            "High" => "badge-warning",
+            "Medium" => "badge-info",
+            "Low" => "badge-secondary",
+            _ => "badge-secondary"
+        };
+    }
+
+    public string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Completed" => "badge-success",
+            "InProgress" => "badge-primary",
+            "Pending" => "badge-warning",
+            "Cancelled" => "badge-danger",
+            _ => "badge-secondary"
+        };
+    }
+}

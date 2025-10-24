@@ -1,0 +1,62 @@
+﻿@page
+@model MughtaribatHouse.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "إنشاء حساب جديد";
+}
+
+<div class="row justify-content-center">
+    <div class="col-xl-5 col-lg-6 col-md-8">
+        <div class="card shadow-lg my-5">
+            <div class="card-body p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">إنشاء حساب جديد!</h1>
+                </div>
+                <form method="post" class="user">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <input asp-for="Input.FullName" class="form-control form-control-user"
+                               placeholder="الاسم الكامل" />
+                        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Input.Email" class="form-control form-control-user"
+                               placeholder="البريد الإلكتروني" />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Input.PhoneNumber" class="form-control form-control-user"
+                               placeholder="رقم الجوال" />
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Input.Password" class="form-control form-control-user"
+                               placeholder="كلمة المرور" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Input.ConfirmPassword" class="form-control form-control-user"
+                               placeholder="تأكيد كلمة المرور" />
+                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        إنشاء الحساب
+                    </button>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a class="small" asp-page="./Login">لديك حساب بالفعل؟ سجل الدخول!</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

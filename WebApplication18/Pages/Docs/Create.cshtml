@@ -1,0 +1,173 @@
+﻿@page
+@model MughtaribatHouse.Pages.Docs.CreateModel
+@{
+    ViewData["Title"] = "رفع مستند جديد";
+    ViewData["ActivePage"] = "Docs";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">رفع مستند جديد</h1>
+    <a asp-page="Index" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left"></i> رجوع
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معلومات المستند</h6>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data" id="uploadForm">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="DocumentUpload.Title" class="control-label">عنوان المستند *</label>
+                        <input asp-for="DocumentUpload.Title" class="form-control" />
+                        <span asp-validation-for="DocumentUpload.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DocumentUpload.Description" class="control-label">الوصف</label>
+                        <textarea asp-for="DocumentUpload.Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="DocumentUpload.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="DocumentUpload.Category" class="control-label">التصنيف *</label>
+                                <select asp-for="DocumentUpload.Category" class="form-control">
+                                    <option value="Contract">عقد</option>
+                                    <option value="Report">تقرير</option>
+                                    <option value="Invoice">فاتورة</option>
+                                    <option value="Identity">هوية</option>
+                                    <option value="License">رخصة</option>
+                                    <option value="Certificate">شهادة</option>
+                                    <option value="Other">أخرى</option>
+                                </select>
+                                <span asp-validation-for="DocumentUpload.Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="DocumentUpload.ResidentId" class="control-label">المقيم (اختياري)</label>
+                                <select asp-for="DocumentUpload.ResidentId" class="form-control">
+                                    <option value="">-- اختر المقيم --</option>
+                                    @foreach (var resident in Model.Residents)
+                                    {
+                                        <option value="@resident.Id">@resident.FullName - @resident.RoomNumber</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="DocumentUpload.ResidentId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DocumentUpload.Tags" class="control-label">العلامات (اختياري)</label>
+                        <input asp-for="DocumentUpload.Tags" class="form-control" placeholder="افصل بين العلامات بفاصلة" />
+                        <small class="form-text text-muted">مثال: عقد إيجار, شهري, 2024</small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input asp-for="DocumentUpload.IsPublic" class="custom-control-input" />
+                            <label class="custom-control-label" asp-for="DocumentUpload.IsPublic">
+                                مستند عام (يمكن للجميع رؤيته)
+                            </label>
+                        </div>
+                        <small class="form-text text-muted">إذا لم يتم تحديد هذا الخيار، سيكون المستند خاصاً بك فقط</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="DocumentUpload.File" class="control-label">الملف *</label>
+                        <div class="custom-file">
+                            <input type="file" asp-for="DocumentUpload.File" class="custom-file-input" id="fileInput" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xls,.xlsx,.txt">
+                            <label class="custom-file-label" for="fileInput" id="fileLabel">اختر ملف...</label>
+                        </div>
+                        <span asp-validation-for="DocumentUpload.File" class="text-danger"></span>
+                        <small class="form-text text-muted">
+                            الأنواع المسموحة: PDF, Word, Excel, Images, Text. الحد الأقصى: 10MB
+                        </small>
+                        <div id="filePreview" class="mt-2" style="display: none;">
+                            <div class="alert alert-info">
+                                <i class="fas fa-file"></i> <span id="fileName"></span>
+                                <small class="d-block" id="fileSize"></small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                            <i class="fas fa-upload"></i> رفع المستند
+                        </button>
+                        <a asp-page="Index" class="btn btn-secondary">إلغاء</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معلومات المسموحات</h6>
+            </div>
+            <div class="card-body">
+                <h6>أنواع الملفات المسموحة:</h6>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-file-pdf text-danger"></i> PDF</li>
+                    <li><i class="fas fa-file-word text-primary"></i> Word (.doc, .docx)</li>
+                    <li><i class="fas fa-file-excel text-success"></i> Excel (.xls, .xlsx)</li>
+                    <li><i class="fas fa-file-image text-info"></i> Images (.jpg, .jpeg, .png)</li>
+                    <li><i class="fas fa-file-alt text-secondary"></i> Text (.txt)</li>
+                </ul>
+
+                <h6 class="mt-3">الحدود:</h6>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-weight text-warning"></i> الحد الأقصى: 10 ميجابايت</li>
+                    <li><i class="fas fa-shield-alt text-success"></i> آمن ومشفّر</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // File input change handler
+            $('#fileInput').on('change', function() {
+                var file = this.files[0];
+                if (file) {
+                    $('#fileLabel').text(file.name);
+                    $('#fileName').text(file.name);
+                    $('#fileSize').text('الحجم: ' + formatFileSize(file.size));
+                    $('#filePreview').show();
+                } else {
+                    $('#fileLabel').text('اختر ملف...');
+                    $('#filePreview').hide();
+                }
+            });
+
+            // Form submission
+            $('#uploadForm').on('submit', function() {
+                $('#submitBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> جاري الرفع...');
+            });
+
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 B';
+                const k = 1024;
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        });
+    </script>
+}

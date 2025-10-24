@@ -1,0 +1,229 @@
+﻿@page
+@model MughtaribatHouse.Pages.Docs.EditModel
+@{
+    ViewData["Title"] = "تعديل المستند";
+    ViewData["ActivePage"] = "Docs";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">تعديل المستند</h1>
+    <div>
+        <a asp-page="Details" asp-route-id="@Model.Document.Id" class="btn btn-info btn-sm">
+            <i class="fas fa-eye"></i> تفاصيل
+        </a>
+        <a asp-page="Index" class="btn btn-secondary btn-sm">
+            <i class="fas fa-arrow-left"></i> رجوع
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معلومات المستند</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Document.Id" />
+
+                    <div class="form-group">
+                        <label asp-for="UpdateRequest.Title" class="control-label">عنوان المستند *</label>
+                        <input asp-for="UpdateRequest.Title" class="form-control" />
+                        <span asp-validation-for="UpdateRequest.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="UpdateRequest.Description" class="control-label">الوصف</label>
+                        <textarea asp-for="UpdateRequest.Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="UpdateRequest.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="UpdateRequest.Category" class="control-label">التصنيف *</label>
+                                <select asp-for="UpdateRequest.Category" class="form-control">
+                                    <option value="Contract">عقد</option>
+                                    <option value="Report">تقرير</option>
+                                    <option value="Invoice">فاتورة</option>
+                                    <option value="Identity">هوية</option>
+                                    <option value="License">رخصة</option>
+                                    <option value="Certificate">شهادة</option>
+                                    <option value="Other">أخرى</option>
+                                </select>
+                                <span asp-validation-for="UpdateRequest.Category" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="UpdateRequest.ResidentId" class="control-label">المقيم (اختياري)</label>
+                                <select asp-for="UpdateRequest.ResidentId" class="form-control">
+                                    <option value="">-- اختر المقيم --</option>
+                                    @foreach (var resident in Model.Residents)
+                                    {
+                                        <option value="@resident.Id">@resident.FullName - @resident.RoomNumber</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="UpdateRequest.ResidentId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="UpdateRequest.Tags" class="control-label">العلامات (اختياري)</label>
+                        <input asp-for="UpdateRequest.Tags" class="form-control" placeholder="افصل بين العلامات بفاصلة" />
+                        <small class="form-text text-muted">مثال: عقد إيجار, شهري, 2024</small>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input asp-for="UpdateRequest.IsPublic" class="custom-control-input" />
+                            <label class="custom-control-label" asp-for="UpdateRequest.IsPublic">
+                                مستند عام (يمكن للجميع رؤيته)
+                            </label>
+                        </div>
+                        <small class="form-text text-muted">إذا لم يتم تحديد هذا الخيار، سيكون المستند خاصاً بك فقط</small>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> حفظ التغييرات
+                        </button>
+                        <a asp-page="Details" asp-route-id="@Model.Document.Id" class="btn btn-secondary">إلغاء</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <!-- Current File Info -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">الملف الحالي</h6>
+            </div>
+            <div class="card-body text-center">
+                <i class="fas @GetFileIcon(Model.Document.FileType) fa-3x text-primary mb-3"></i>
+                <h6>@Model.Document.Title</h6>
+                <p class="text-muted small">
+                    @Model.Document.FileType.ToUpper() • @FormatFileSize(Model.Document.FileSize)
+                    <br>
+                    تم الرفع: @Model.Document.UploadedAt.ToString("yyyy/MM/dd")
+                </p>
+
+                <div class="mt-3">
+                    <a href="/api/docs/download/@Model.Document.Id" class="btn btn-info btn-sm btn-block">
+                        <i class="fas fa-download"></i> تحميل الملف
+                    </a>
+                    <button type="button" class="btn btn-warning btn-sm btn-block mt-2" data-toggle="modal" data-target="#replaceFileModal">
+                        <i class="fas fa-exchange-alt"></i> استبدال الملف
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Replace File Modal -->
+<div class="modal fade" id="replaceFileModal" tabindex="-1" role="dialog" aria-labelledby="replaceFileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="replaceFileModalLabel">استبدال الملف</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="replaceFileForm" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="newFile">اختر ملف جديد</label>
+                        <input type="file" class="form-control-file" id="newFile" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.xls,.xlsx,.txt">
+                        <small class="form-text text-muted">الحد الأقصى: 10MB. الأنواع المسموحة: PDF, Word, Excel, Images, Text</small>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">إلغاء</button>
+                <button type="button" class="btn btn-primary" id="replaceFileBtn">استبدال</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function() {
+            // Replace file functionality
+            $('#replaceFileBtn').on('click', function() {
+                var fileInput = $('#newFile')[0];
+                if (!fileInput.files || !fileInput.files[0]) {
+                    alert('الرجاء اختيار ملف');
+                    return;
+                }
+
+                var formData = new FormData();
+                formData.append('file', fileInput.files[0]);
+
+                $('#replaceFileBtn').prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> جاري الاستبدال...');
+
+                $.ajax({
+                    url: '/api/docs/@Model.Document.Id/file',
+                    type: 'PUT',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            $('#replaceFileModal').modal('hide');
+                            alert('تم استبدال الملف بنجاح');
+                            location.reload();
+                        } else {
+                            alert('فشل في استبدال الملف: ' + response.message);
+                        }
+                    },
+                    error: function() {
+                        alert('فشل في استبدال الملف');
+                    },
+                    complete: function() {
+                        $('#replaceFileBtn').prop('disabled', false).html('استبدال');
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+@functions {
+    public string GetFileIcon(string fileType)
+    {
+        return fileType.ToLower() switch
+        {
+            ".pdf" => "fa-file-pdf text-danger",
+            ".doc" or ".docx" => "fa-file-word text-primary",
+            ".xls" or ".xlsx" => "fa-file-excel text-success",
+            ".jpg" or ".jpeg" or ".png" or ".gif" => "fa-file-image text-info",
+            ".txt" => "fa-file-alt text-secondary",
+            _ => "fa-file text-gray-300"
+        };
+    }
+
+    public string FormatFileSize(long bytes)
+    {
+        string[] sizes = { "B", "KB", "MB", "GB" };
+        double len = bytes;
+        int order = 0;
+        while (len >= 1024 && order < sizes.Length - 1)
+        {
+            order++;
+            len /= 1024;
+        }
+        return $"{len:0.##} {sizes[order]}";
+    }
+}
