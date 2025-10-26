@@ -20,10 +20,10 @@ namespace MughtaribatHouse.Models
         public string RoomNumber { get; set; }
 
         [StringLength(50)]
-        public string Priority { get; set; } = "Medium"; // Low, Medium, High, Critical
+        public string Priority { get; set; } = "Medium"; 
 
         [StringLength(50)]
-        public string Status { get; set; } = "Pending"; // Pending, InProgress, Completed, Cancelled
+        public string Status { get; set; } = "Pending"; 
 
         public DateTime ReportedDate { get; set; } = DateTime.UtcNow;
         public DateTime? CompletedDate { get; set; }
@@ -39,7 +39,6 @@ namespace MughtaribatHouse.Models
         [StringLength(100)]
         public string? AssignedTo { get; set; }
 
-        // Navigation properties
         public virtual ApplicationUser ReportedByUser { get; set; }
     }
 }

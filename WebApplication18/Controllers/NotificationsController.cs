@@ -34,14 +34,14 @@ namespace MughtaribatHouse.Controllers
         public async Task<IActionResult> MarkAsRead(int id)
         {
             await _notificationService.MarkAsReadAsync(id);
-            return Success(null, "تم标记 الإشعار كمقروء");
+            return Success(null, " الإشعار كمقروء");
         }
 
         [HttpPost("read-all")]
         public async Task<IActionResult> MarkAllAsRead()
         {
             await _notificationService.MarkAllAsReadAsync(UserId);
-            return Success(null, "تم标记 جميع الإشعارات كمقروءة");
+            return Success(null, "تم جميع الإشعارات كمقروءة");
         }
 
         [HttpDelete("{id}")]

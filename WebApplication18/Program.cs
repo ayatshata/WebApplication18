@@ -2,112 +2,102 @@
 using Microsoft.EntityFrameworkCore;
 using MughtaribatHouse.Data;
 using MughtaribatHouse.Models;
+using MughtaribatHouse.Services;
+using Hangfire;
+using Hangfire.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔧 إعداد المنفذ للتجربة المحلية
-builder.WebHost.UseUrls("http://localhost:5050");
-
-// 🔹 اتصال قاعدة البيانات
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// ✅ Database Connection
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// 🔹 Identity
+// ✅ Identity Configuration
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
-    options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = true;
     options.Password.RequiredLength = 6;
-    options.User.RequireUniqueEmail = true;
+    options.SignIn.RequireConfirmedAccount = false;
 })
 .AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// 🔹 MVC + Razor Pages
+// ✅ Hangfire Configuration
+builder.Services.AddHangfire(config =>
+    config.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddHangfireServer();
+
+// ✅ Razor Pages + Controllers
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+// ✅ Register Application Services
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+builder.Services.AddScoped<IExportService, ExportService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
+
+// ✅ Health Checks
+builder.Services.AddHealthChecks();
+
 var app = builder.Build();
 
-// 🔹 قاعدة البيانات والتهيئة
+// ✅ Seed Database
 using (var scope = app.Services.CreateScope())
 {
+    var services = scope.ServiceProvider;
     try
     {
-        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        await context.Database.MigrateAsync();
-
-        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-        var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+        var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
         await DbInitializer.Initialize(context, userManager, roleManager);
-        Console.WriteLine("✅ قاعدة البيانات جاهزة");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"❌ خطأ أثناء التهيئة: {ex}");
+        Console.WriteLine($"❌ Database initialization failed: {ex.Message}");
     }
 }
 
-// 🔹 Middleware
-if (app.Environment.IsDevelopment())
+// ✅ Middleware
+if (!app.Environment.IsDevelopment())
 {
-    app.UseDeveloperExceptionPage();
-}
-else
-{
-    app.UseExceptionHandler("/Error");
+    app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
 
-app.UseHttpsRedirection(); // ممكن تحذفه لو تريد HTTP فقط
+app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
-// 🔹 Razor Pages + Controllers
-app.MapRazorPages();
+// ✅ Hangfire Dashboard (Admin Panel)
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = [] // يمكن لاحقًا إضافة صلاحيات للمسؤول فقط
+});
+
+// ✅ Health Check Endpoint
+app.MapHealthChecks("/health");
+
+// ✅ Docs Controller Route
+app.MapControllerRoute(
+    name: "docs",
+    pattern: "Documents/{action=Index}/{id?}",
+    defaults: new { controller = "Docs" }
+);
+
+// ✅ Default Route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// 🔹 صفحة رئيسية بسيطة
-app.MapGet("/", async (HttpContext context) =>
-{
-    var isAuthenticated = context.User.Identity?.IsAuthenticated == true;
-    var html = $@"
-    <!DOCTYPE html>
-    <html lang='ar' dir='rtl'>
-    <head>
-        <meta charset='utf-8'>
-        <title>بيت المقتربات</title>
-        <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css' rel='stylesheet'>
-    </head>
-    <body class='p-5 text-center'>
-        <h1 class='text-primary'>🏠 بيت المقتربات</h1>
-        {(isAuthenticated ? "<div class='alert alert-success'>✅ التطبيق جاهز للعمل</div>" :
-                            "<div class='alert alert-info'>سجل الدخول للبدء</div>")}
-    </body>
-    </html>";
+app.MapRazorPages();
 
-    context.Response.ContentType = "text/html; charset=utf-8";
-    await context.Response.WriteAsync(html);
-});
-
-// 🔹 صحة التطبيق
-app.MapGet("/health", () => Results.Json(new
-{
-    status = "Healthy",
-    port = 5050,
-    timestamp = DateTime.Now
-}));
-
-Console.WriteLine("🚀 التطبيق بدأ:");
-Console.WriteLine("📍 http://localhost:5050");
-
+Console.WriteLine("🚀 App is running: http://localhost:5000 or https://localhost:5001");
 app.Run();

@@ -15,11 +15,10 @@
     }
 
     setupArabicUI() {
-        // تعيين النصوص العربية للعناصر
+   
         document.getElementById('loadingText').textContent = 'جاري تحميل البيانات...';
         document.getElementById('refreshBtn').textContent = 'تحديث البيانات';
 
-        // تعيين اتجاه RTL
         document.body.style.direction = 'rtl';
         document.body.style.textAlign = 'right';
     }
@@ -55,14 +54,13 @@
     }
 
     updateDashboardUI(data) {
-        // تحديث بطاقات الملخص
+ 
         document.getElementById('totalResidents').textContent = this.formatNumber(data.totalResidents);
         document.getElementById('activeResidents').textContent = this.formatNumber(data.activeResidents);
         document.getElementById('vacantRooms').textContent = this.formatNumber(data.vacantRooms);
         document.getElementById('monthlyRevenue').textContent = this.formatCurrency(data.monthlyRevenue);
         document.getElementById('pendingPayments').textContent = this.formatCurrency(data.pendingPayments);
 
-        // تحديث العناوين
         document.querySelector('#residentsCard .card-title').textContent = 'إجمالي المقيمين';
         document.querySelector('#activeCard .card-title').textContent = 'المقيمين النشطين';
         document.querySelector('#vacantCard .card-title').textContent = 'الغرف الشاغرة';
@@ -203,7 +201,7 @@
             data: {
                 labels: ['مدفوع', 'متأخر', 'قيد الانتظار'],
                 datasets: [{
-                    data: [70, 20, 10], // بيانات مثاليه
+                    data: [70, 20, 10], 
                     backgroundColor: ['#28a745', '#dc3545', '#ffc107']
                 }]
             },
@@ -232,7 +230,7 @@
     }
 
     formatArabicDate(period) {
-        // تحويل الفترة إلى تنسيق عربي
+      
         const [year, month] = period.split('-');
         const months = {
             '01': 'يناير', '02': 'فبراير', '03': 'مارس', '04': 'أبريل',
@@ -262,7 +260,7 @@
     }
 
     showError(message) {
-        // عرض رسالة خطأ للمستخدم
+     
         const errorDiv = document.getElementById('errorMessage');
         errorDiv.textContent = message;
         errorDiv.classList.remove('d-none');
@@ -270,15 +268,14 @@
     }
 
     setupEventListeners() {
-        // زر التحديث
+     
         document.getElementById('refreshDashboard').addEventListener('click', () => {
             this.loadDashboardData();
         });
 
-        // التحديث التلقائي كل 5 دقائق
+ 
         setInterval(() => this.loadDashboardData(), 300000);
 
-        // استماع لتحديثات SignalR
         this.connection.on("DashboardUpdated", (data) => {
             this.showNotification('تم تحديث البيانات تلقائياً');
             this.loadDashboardData();
@@ -286,7 +283,7 @@
     }
 
     showNotification(message) {
-        // عرض إشعار للمستخدم
+  
         if ('Notification' in window && Notification.permission === 'granted') {
             new Notification('مغتربات هاوس', {
                 body: message,
@@ -296,7 +293,7 @@
     }
 }
 
-// تهيئة اللوحة عند تحميل الصفحة
+
 document.addEventListener('DOMContentLoaded', () => {
     new DashboardAr();
 });

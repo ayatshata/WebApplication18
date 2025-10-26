@@ -1,6 +1,6 @@
-﻿// Notifications management
+﻿
 $(document).ready(function () {
-    // Mark notification as read
+
     $('.mark-read').click(function () {
         var notificationId = $(this).data('id');
         $.post('/api/notifications/' + notificationId + '/read')
@@ -8,11 +8,10 @@ $(document).ready(function () {
                 location.reload();
             })
             .fail(function () {
-                alert('فشل في标记 الإشعار كمقروء');
+                alert('فشل في الإشعار كمقروء');
             });
     });
 
-    // Mark all as read
     $('#markAllRead').click(function () {
         $.post('/api/notifications/read-all')
             .done(function (response) {
@@ -23,7 +22,7 @@ $(document).ready(function () {
             });
     });
 
-    // Delete notification
+
     $('.delete-notification').click(function () {
         var notificationId = $(this).data('id');
         if (confirm('هل تريد حذف هذا الإشعار؟')) {

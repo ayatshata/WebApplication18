@@ -166,8 +166,6 @@ namespace MughtaribatHouse.Controllers
             if (request == null)
                 return Error("بيانات طلب الصيانة مطلوبة");
 
-            // In a real application, you would save this to the database
-            // This is a simplified version
             return Success(null, "تم تقديم طلب الصيانة بنجاح وسيتم معالجته قريبًا");
         }
 

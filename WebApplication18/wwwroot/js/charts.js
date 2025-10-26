@@ -1,4 +1,4 @@
-﻿// Chart configurations and utilities
+﻿
 class ChartManager {
     static initRevenueChart(ctx, labels, data) {
         return new Chart(ctx, {

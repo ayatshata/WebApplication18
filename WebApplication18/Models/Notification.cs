@@ -20,7 +20,7 @@ namespace MughtaribatHouse.Models
         public bool IsRead { get; set; } = false;
 
         [StringLength(50)]
-        public string Type { get; set; } = "Info"; // Info, Warning, Success, Danger
+        public string Type { get; set; } = "Info"; 
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
@@ -29,7 +29,7 @@ namespace MughtaribatHouse.Models
         [StringLength(100)]
         public string? ActionUrl { get; set; }
 
-        // Navigation properties
+     
         public virtual ApplicationUser User { get; set; }
     }
 }

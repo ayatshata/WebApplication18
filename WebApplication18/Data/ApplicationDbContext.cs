@@ -26,15 +26,14 @@ namespace MughtaribatHouse.Data
         {
             base.OnModelCreating(builder);
 
-            // Resident configuration
+      
             builder.Entity<Resident>(entity =>
             {
                 entity.HasIndex(r => r.IdentityNumber).IsUnique();
                 entity.HasIndex(r => r.RoomNumber);
                 entity.HasIndex(r => r.IsActive);
 
-                entity.Property(r => r.MonthlyRent)
-                    .HasColumnType("decimal(18,2)");
+                entity.Property(r => r.MonthlyRent).HasColumnType("decimal(18,2)");
 
                 entity.HasOne(r => r.ManagedByUser)
                     .WithMany(u => u.ManagedResidents)
@@ -42,12 +41,9 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Payment configuration
             builder.Entity<Payment>(entity =>
             {
-                entity.Property(p => p.Amount)
-                    .HasColumnType("decimal(18,2)");
-
+                entity.Property(p => p.Amount).HasColumnType("decimal(18,2)");
                 entity.HasIndex(p => p.PaymentDate);
                 entity.HasIndex(p => p.ForMonth);
 
@@ -62,7 +58,7 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Notification configuration
+            //  Notification 
             builder.Entity<Notification>(entity =>
             {
                 entity.HasIndex(n => n.UserId);
@@ -75,7 +71,7 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // AuditLog configuration
+            //  AuditLog configuration
             builder.Entity<AuditLog>(entity =>
             {
                 entity.HasIndex(a => a.UserId);
@@ -89,7 +85,7 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // MaintenanceTask configuration
+            //  MaintenanceTask configuration
             builder.Entity<MaintenanceTask>(entity =>
             {
                 entity.HasIndex(m => m.Status);
@@ -97,8 +93,7 @@ namespace MughtaribatHouse.Data
                 entity.HasIndex(m => m.RoomNumber);
                 entity.HasIndex(m => m.ReportedDate);
 
-                entity.Property(m => m.Cost)
-                    .HasColumnType("decimal(18,2)");
+                entity.Property(m => m.Cost).HasColumnType("decimal(18,2)");
 
                 entity.HasOne(m => m.ReportedByUser)
                     .WithMany(u => u.CreatedTasks)
@@ -106,12 +101,10 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Expense configuration
+            //  Expense configuration
             builder.Entity<Expense>(entity =>
             {
-                entity.Property(e => e.Amount)
-                    .HasColumnType("decimal(18,2)");
-
+                entity.Property(e => e.Amount).HasColumnType("decimal(18,2)");
                 entity.HasIndex(e => e.ExpenseDate);
                 entity.HasIndex(e => e.Category);
 
@@ -121,7 +114,7 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Attendance configuration
+            //  Attendance configuration
             builder.Entity<Attendance>(entity =>
             {
                 entity.HasIndex(a => a.ResidentId);
@@ -139,7 +132,7 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Schedule configuration
+            //  Schedule configuration
             builder.Entity<Schedule>(entity =>
             {
                 entity.HasIndex(s => s.StartTime);
@@ -151,7 +144,7 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Document configuration
+            //  Document configuration
             builder.Entity<Document>(entity =>
             {
                 entity.HasIndex(d => d.Category);
@@ -169,7 +162,7 @@ namespace MughtaribatHouse.Data
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
-            // Review configuration
+            //  Review configuration
             builder.Entity<Review>(entity =>
             {
                 entity.HasIndex(r => r.Rating);
@@ -178,21 +171,19 @@ namespace MughtaribatHouse.Data
             });
         }
 
+   
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            var entries = ChangeTracker.Entries()
-                .Where(e => e.Entity is Resident && (
-                        e.State == EntityState.Added
-                        || e.State == EntityState.Modified));
+            var now = DateTime.UtcNow;
 
-            foreach (var entityEntry in entries)
+            foreach (var entry in ChangeTracker.Entries())
             {
-                if (entityEntry.State == EntityState.Added)
+                if (entry.Entity is Resident resident)
                 {
-                    ((Resident)entityEntry.Entity).CreatedAt = DateTime.UtcNow;
+                    if (entry.State == EntityState.Added)
+                        resident.CreatedAt = now;
+                    resident.UpdatedAt = now;
                 }
-
-                ((Resident)entityEntry.Entity).UpdatedAt = DateTime.UtcNow;
             }
 
             return await base.SaveChangesAsync(cancellationToken);

@@ -18,11 +18,14 @@ namespace MughtaribatHouse.Models
 
         public string? ProfilePicture { get; set; }
 
-        // Navigation properties
-        public virtual ICollection<Resident> ManagedResidents { get; set; }
-        public virtual ICollection<Payment> ProcessedPayments { get; set; }
-        public virtual ICollection<Notification> Notifications { get; set; }
-        public virtual ICollection<AuditLog> AuditLogs { get; set; }
-        public virtual ICollection<MaintenanceTask> CreatedTasks { get; set; }
+        public virtual ICollection<Resident> ManagedResidents { get; set; } = new List<Resident>();
+        public virtual ICollection<Payment> ProcessedPayments { get; set; } = new List<Payment>();
+        public virtual ICollection<Notification> Notifications { get; set; } = new List<Notification>();
+        public virtual ICollection<AuditLog> AuditLogs { get; set; } = new List<AuditLog>();
+
+     
+        public virtual ICollection<MaintenanceTask> CreatedTasks { get; set; } = new List<MaintenanceTask>();
+
+        public virtual ICollection<Attendance> AttendanceRecords { get; set; } = new List<Attendance>();
     }
 }

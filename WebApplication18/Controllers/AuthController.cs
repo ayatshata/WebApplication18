@@ -68,7 +68,7 @@ namespace MughtaribatHouse.Controllers
                 await _userManager.AddToRoleAsync(user, "Staff");
 
                 var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                // In a real application, you would send this code via email
+             
 
                 await _auditService.LogActionAsync(user.Id, "Register", "User", user.Id,
                     null, null, "New user registered", HttpContext.Connection.RemoteIpAddress?.ToString());
@@ -97,13 +97,14 @@ namespace MughtaribatHouse.Controllers
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
-            {
-                // Don't reveal that the user does not exist or is not confirmed
+            { 
+                
+            
                 return Success(null, "إذا كان البريد الإلكتروني مسجلاً، سيتم إرسال رابط إعادة تعيين كلمة المرور");
             }
 
             var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-            // In a real application, you would send this code via email
+ 
 
             await _auditService.LogActionAsync(user.Id, "ForgotPassword", "User", user.Id,
                 null, null, "Password reset requested", HttpContext.Connection.RemoteIpAddress?.ToString());

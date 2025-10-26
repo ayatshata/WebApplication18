@@ -12,11 +12,11 @@ namespace MughtaribatHouse.Models
 
         [Required]
         [StringLength(100)]
-        public string Action { get; set; } // Create, Update, Delete, Login, etc.
+        public string Action { get; set; } 
 
         [Required]
         [StringLength(100)]
-        public string Entity { get; set; } // Resident, Payment, etc.
+        public string Entity { get; set; } 
 
         public string? EntityId { get; set; }
 
@@ -31,7 +31,7 @@ namespace MughtaribatHouse.Models
         [StringLength(45)]
         public string? IpAddress { get; set; }
 
-        // Navigation properties
+        
         public virtual ApplicationUser User { get; set; }
     }
 }

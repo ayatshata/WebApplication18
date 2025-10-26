@@ -21,7 +21,7 @@ namespace MughtaribatHouse.Models
         public DateTime EndTime { get; set; }
 
         [StringLength(50)]
-        public string Type { get; set; } // Meeting, Event, Maintenance, Inspection
+        public string Type { get; set; } 
 
         [StringLength(100)]
         public string? Location { get; set; }
@@ -31,11 +31,11 @@ namespace MughtaribatHouse.Models
         public string CreatedByUserId { get; set; }
 
         [StringLength(200)]
-        public string? Attendees { get; set; } // Comma-separated list of attendees
+        public string? Attendees { get; set; } 
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // Navigation properties
+      
         public virtual ApplicationUser CreatedByUser { get; set; }
     }
 }

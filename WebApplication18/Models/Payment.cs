@@ -19,7 +19,7 @@ namespace MughtaribatHouse.Models
         public DateTime PaymentDate { get; set; }
 
         [Required]
-        public DateTime ForMonth { get; set; } // الشهر الذي يغطيه الدفع
+        public DateTime ForMonth { get; set; } 
 
         [StringLength(20)]
         public string PaymentMethod { get; set; } = "Cash";
@@ -31,7 +31,6 @@ namespace MughtaribatHouse.Models
 
         public string? ProcessedByUserId { get; set; }
 
-        // Navigation properties
         public virtual Resident Resident { get; set; }
         public virtual ApplicationUser? ProcessedByUser { get; set; }
     }

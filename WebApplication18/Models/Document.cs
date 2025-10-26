@@ -52,20 +52,19 @@ namespace MughtaribatHouse.Models
 
         [StringLength(50)]
         [Display(Name = "حالة الملف")]
-        public string Status { get; set; } = "Active"; // Active, Archived, Deleted
+        public string Status { get; set; } = "Active"; 
 
         [StringLength(500)]
         [Display(Name = "العلامات")]
         public string? Tags { get; set; }
 
-        // Navigation properties
+
         [Display(Name = "المقيم")]
         public virtual Resident? Resident { get; set; }
 
         [Display(Name = "مرفوع بواسطة")]
         public virtual ApplicationUser UploadedByUser { get; set; }
 
-        // Computed property for display
         [NotMapped]
         [Display(Name = "حجم الملف")]
         public string FileSizeDisplay => GetFileSizeDisplay();
@@ -98,7 +97,7 @@ namespace MughtaribatHouse.Models
             _ => false
         };
 
-        // Helper method to format file size
+      
         private string GetFileSizeDisplay()
         {
             string[] sizes = { "B", "KB", "MB", "GB" };

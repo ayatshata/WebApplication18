@@ -142,7 +142,6 @@ body {
     width: 100%;
 }
 
-/* Loading spinner */
 .loading-spinner {
     display: inline-block;
     width: 1rem;
@@ -163,7 +162,6 @@ body {
     }
 }
 
-/* Custom utilities */
 .text-small {
     font-size: 0.875rem;
 }
@@ -188,7 +186,7 @@ body {
     border-left: 0.25rem solid var(--danger-color) !important;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
@@ -203,7 +201,7 @@ body {
     }
 }
 
-/* Print styles */
+
 @media print {
     .no-print {
         display: none !important;

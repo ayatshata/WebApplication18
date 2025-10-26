@@ -10,7 +10,7 @@ namespace MughtaribatHouse.Models
 
         [Required]
         [StringLength(100)]
-        public string Category { get; set; } // Electricity, Water, Maintenance, Supplies, etc.
+        public string Category { get; set; } 
 
         [Required]
         [StringLength(200)]
@@ -32,7 +32,7 @@ namespace MughtaribatHouse.Models
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-        // Navigation properties
+     
         public virtual ApplicationUser ProcessedByUser { get; set; }
     }
 }

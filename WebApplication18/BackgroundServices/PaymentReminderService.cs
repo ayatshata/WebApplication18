@@ -53,7 +53,7 @@ namespace MughtaribatHouse.BackgroundServices
 
             _logger.LogInformation($"Found {residentsWithPendingPayments.Count} residents with pending payments");
 
-            // In a real application, you would send notifications or emails here
+
         }
     }
 }
