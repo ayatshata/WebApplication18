@@ -20,11 +20,22 @@
 - **المستخدم**: `admin@mughtaribat.com`
 - **كلمة المرور**: '!`
 
+ 
  📁 هيكل المشروع
 MughtaribatHouse/
 ├── Controllers/   API
 ├── Data/ 
 ├── Models/ 
 ├── Pages/ # واجهة المستخدم
+
+MughtaribatHouse/
+├── 📂 Controllers/       (API)
+├── 📂 Data/               
+├── 📂 Models/          
+├── 📂 Pages/                Razor
+├── 📂 Services/           
+├── 📂 BackgroundServices/  
+├── 📂 wwwroot/     
+└── 📄 Program.cs      
 ├── Services/ # منطق الأعمال
 └── wwwroot/ # ملفات ثابتة
