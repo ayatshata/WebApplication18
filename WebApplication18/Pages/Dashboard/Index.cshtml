@@ -6,7 +6,7 @@
 }
 
 <div class="row">
-    <!-- Statistics Cards -->
+
     <div class="col-xl-3 col-md-6 mb-4">
         <div class="card border-left-primary shadow h-100 py-2">
             <div class="card-body">
@@ -81,7 +81,7 @@
 </div>
 
 <div class="row">
-    <!-- Revenue Chart -->
+  
     <div class="col-xl-8 col-lg-7">
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    <!-- Occupancy Rate -->
+
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -123,7 +123,7 @@
 </div>
 
 <div class="row">
-    <!-- Recent Payments -->
+
     <div class="col-lg-6 mb-4">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -155,7 +155,7 @@
         </div>
     </div>
 
-    <!-- Urgent Maintenance -->
+  
     <div class="col-lg-6 mb-4">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -188,7 +188,7 @@
 @section Scripts {
     <script src="~/js/charts.js"></script>
     <script>
-        // Revenue Chart
+     
         var ctx = document.getElementById('revenueChart').getContext('2d');
         var revenueChart = new Chart(ctx, {
             type: 'line',
@@ -270,7 +270,7 @@
             }
         });
 
-        // Occupancy Chart
+ 
         var ctxPie = document.getElementById('occupancyChart').getContext('2d');
         var occupancyChart = new Chart(ctxPie, {
             type: 'doughnut',

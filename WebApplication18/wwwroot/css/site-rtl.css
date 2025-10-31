@@ -1,0 +1,296 @@
+﻿/* ==========================
+   Arabic font and RTL support
+   ========================== */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+:root {
+    --primary-color: #4e73df;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --secondary-color: #858796;
+    --light-color: #f8f9fc;
+    --dark-color: #5a5c69;
+}
+
+* {
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    direction: rtl;
+    text-align: right;
+    background-color: #f8f9fc;
+}
+
+/* ==========================
+   Sidebar RTL adjustments
+   ========================== */
+.sidebar {
+    right: 0;
+    left: auto;
+}
+
+    .sidebar .nav-item .nav-link {
+        text-align: right;
+    }
+
+        .sidebar .nav-item .nav-link i {
+            margin-left: 0.5rem;
+            margin-right: 0;
+        }
+
+/* ==========================
+   Card adjustments
+   ========================== */
+.card {
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    border: 1px solid #e3e6f0;
+}
+
+.card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3e6f0;
+}
+
+/* ==========================
+   Table RTL adjustments
+   ========================== */
+.table th {
+    text-align: right;
+}
+
+/* ==========================
+   Buttons
+   ========================== */
+.btn {
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    border-color: var(--danger-color);
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+/* ==========================
+   Badges
+   ========================== */
+.badge-primary {
+    background-color: var(--primary-color);
+}
+
+.badge-success {
+    background-color: var(--success-color);
+}
+
+.badge-danger {
+    background-color: var(--danger-color);
+}
+
+.badge-warning {
+    background-color: var(--warning-color);
+}
+
+.badge-info {
+    background-color: var(--info-color);
+}
+
+/* ==========================
+   Forms
+   ========================== */
+.form-control {
+    text-align: right;
+}
+
+.form-check {
+    padding-right: 1.25rem;
+    padding-left: 0;
+}
+
+.form-check-input {
+    margin-right: -1.25rem;
+    margin-left: 0;
+}
+
+/* ==========================
+   Navbar adjustments
+   ========================== */
+.navbar-nav {
+    padding-right: 0;
+}
+
+/* ==========================
+   DataTables RTL
+   ========================== */
+.dataTables_wrapper {
+    direction: rtl;
+}
+
+.dataTables_filter {
+    text-align: left;
+}
+
+/* ==========================
+   Chart containers
+   ========================== */
+.chart-area, .chart-pie {
+    position: relative;
+    width: 100%;
+}
+
+.chart-area {
+    height: 20rem;
+}
+
+.chart-pie {
+    height: 15rem;
+}
+
+/* ==========================
+   Loading spinner
+   ========================== */
+.loading-spinner {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 2px solid #3498db;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================
+   Text & Borders
+   ========================== */
+.text-small {
+    font-size: 0.875rem;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid var(--primary-color) !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid var(--success-color) !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid var(--info-color) !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid var(--warning-color) !important;
+}
+
+.border-left-danger {
+    border-left: 0.25rem solid var(--danger-color) !important;
+}
+
+/* ==========================
+   Responsive adjustments
+   ========================== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .table-responsive {
+        font-size: 0.875rem;
+    }
+}
+
+/* ==========================
+   Print adjustments
+   ========================== */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    .card {
+        border: none;
+        box-shadow: none;
+    }
+}
+
+/* ==========================
+   Notification bar (pink)
+   ========================== */
+.notification-bar {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    min-width: 300px;
+    background-color: #fcd6e2;
+    color: #d64d87;
+    border-left: 6px solid #d64d87;
+    box-shadow: 0 4px 10px rgba(214, 77, 135, 0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    animation: slideDown 0.6s ease;
+    z-index: 9999;
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #b93d76;
+    margin-top: 5px;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================
+   Footer
+   ========================== */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #f8c8dc;
+    color: white;
+    font-weight: 500;
+}

@@ -26,7 +26,7 @@ namespace MughtaribatHouse.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         [StringLength(20)]
-        public string? ResidentType { get; set; } // Current, Former, Family
+        public string? ResidentType { get; set; } 
 
         public bool WouldRecommend { get; set; } = true;
     }
