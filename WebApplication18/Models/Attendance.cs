@@ -22,7 +22,7 @@ namespace MughtaribatHouse.Models
 
         public string RecordedByUserId { get; set; }
 
-        // Navigation properties
+ 
         public virtual Resident Resident { get; set; }
         public virtual ApplicationUser RecordedByUser { get; set; }
     }

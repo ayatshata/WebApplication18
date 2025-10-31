@@ -27,4 +27,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\datatables\" />
+    <Folder Include="wwwroot\lib\chart.js\" />
+  </ItemGroup>
+
 </Project>

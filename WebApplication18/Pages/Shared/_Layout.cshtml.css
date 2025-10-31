@@ -1,48 +1,143 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿/* ==========================
+   CSS أساسي للصفحة
+   ========================== */
 
+/* إشعار وردي مع حركة SlideDown */
+.notification-bar {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    min-width: 300px;
+    background-color: #fcd6e2;
+    color: #d64d87;
+    border-left: 6px solid #d64d87;
+    box-shadow: 0 4px 10px rgba(214, 77, 135, 0.2);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    animation: slideDown 0.6s ease;
+    z-index: 9999;
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.notification-time {
+    font-size: 12px;
+    color: #b93d76;
+    margin-top: 5px;
+}
+
+/* حركة SlideDown */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================
+   شريط جانبي
+   ========================== */
+.sidebar {
+    background-color: #f7a8c3 !important;
+}
+
+    .sidebar .nav-link {
+        color: #fff !important;
+        transition: all 0.3s ease;
+    }
+
+        .sidebar .nav-link:hover {
+            background-color: #fcd6e2 !important;
+            color: #d64d87 !important;
+        }
+
+    .sidebar .nav-item.active > .nav-link {
+        background-color: #fcd6e2 !important;
+        color: #d64d87 !important;
+        font-weight: 600;
+    }
+
+/* ==========================
+   Topbar
+   ========================== */
+.topbar {
+    background-color: #fff !important;
+    border-bottom: 3px solid #f7a8c3;
+}
+
+    .topbar .nav-link {
+        color: #d64d87 !important;
+    }
+
+.img-profile {
+    width: 35px;
+    height: 35px;
+    border: 2px solid #f7a8c3;
+}
+
+/* ==========================
+   الروابط والأزرار
+   ========================== */
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 a {
-  color: #0077cc;
+    color: #0077cc;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
+/* ==========================
+   الحدود والظل
+   ========================== */
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+/* ==========================
+   أزرار وسياسة
+   ========================== */
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    line-height: inherit;
 }
 
+/* ==========================
+   Footer
+   ========================== */
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
+    background-color: #f8c8dc;
+    color: white;
+    font-weight: 500;
 }

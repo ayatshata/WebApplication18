@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using MughtaribatHouse.Hubs;
 using MughtaribatHouse.Services;
 
 namespace MughtaribatHouse.Controllers
@@ -10,10 +12,12 @@ namespace MughtaribatHouse.Controllers
     public class PaymentsController : BaseApiController
     {
         private readonly IPaymentService _paymentService;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public PaymentsController(IPaymentService paymentService)
+        public PaymentsController(IPaymentService paymentService, IHubContext<NotificationHub> hubContext)
         {
             _paymentService = paymentService;
+            _hubContext = hubContext;
         }
 
         [HttpGet]
@@ -43,6 +47,13 @@ namespace MughtaribatHouse.Controllers
             try
             {
                 var payment = await _paymentService.CreatePaymentAsync(dto, UserId);
+
+                // ✅ إشعار لحظي عبر SignalR عند إنشاء دفعة جديدة
+                await _hubContext.Clients.All.SendAsync(
+                    "ReceiveNotification",
+                    $"💰 تم تسجيل دفعة جديدة بمبلغ {dto.Amount} للساكن رقم {dto.ResidentId}."
+                );
+
                 return Success(payment, "تم تسجيل الدفعة بنجاح");
             }
             catch (Exception ex)
@@ -58,6 +69,13 @@ namespace MughtaribatHouse.Controllers
             var result = await _paymentService.DeletePaymentAsync(id);
             if (!result)
                 return NotFound("الدفعة غير موجودة");
+
+            // ✅ إشعار عند الحذف مع اسم المستخدم
+            var username = User.Identity?.Name ?? "مستخدم غير معروف";
+            await _hubContext.Clients.All.SendAsync(
+                "ReceiveNotification",
+                $"🗑️ تم حذف دفعة رقم {id} من قبل {username}"
+            );
 
             return Success(null, "تم حذف الدفعة بنجاح");
         }
