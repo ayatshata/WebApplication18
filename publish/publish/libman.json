@@ -1,0 +1,36 @@
+{
+  "version": "3.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery"
+    },
+    {
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap"
+    },
+    {
+      "library": "datatables.net@2.3.4",
+      "destination": "wwwroot/lib/datatables"
+    },
+    {
+      "library": "datatables.net-bs4@3.2.2",
+      "destination": "wwwroot/lib/datatables"
+    },
+    {
+      "library": "Chart.js@4.5.0",
+      "destination": "wwwroot/lib/chart.js"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@microsoft/signalr@8.0.0",
+      "destination": "wwwroot/lib/microsoft"
+    },
+    {
+      "provider": "unpkg",
+      "library": "@fortawesome/fontawesome-free@7.1.0",
+      "destination": "wwwroot/lib/fontawesome"
+    }
+  ]
+}

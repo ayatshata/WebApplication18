@@ -1,0 +1,182 @@
+﻿@page
+@model MughtaribatHouse.Pages.Reports.IndexModel
+@{
+    ViewData["Title"] = "التقارير";
+    ViewData["ActivePage"] = "Reports";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">التقارير</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            التقرير المالي
+                        </div>
+                        <div class="mb-0 font-weight-bold text-gray-800">
+                            تقرير شامل بالإيرادات والمصروفات
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-file-invoice-dollar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary btn-sm generate-report" data-type="financial">
+                        <i class="fas fa-download"></i> إنشاء التقرير
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            تقرير المقيمين
+                        </div>
+                        <div class="mb-0 font-weight-bold text-gray-800">
+                            قائمة كاملة بالمقيمين وبياناتهم
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-success btn-sm generate-report" data-type="residents">
+                        <i class="fas fa-download"></i> إنشاء التقرير
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            تقرير الإشغال
+                        </div>
+                        <div class="mb-0 font-weight-bold text-gray-800">
+                            معدلات الإشغال والغرف الشاغرة
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-bed fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-info btn-sm generate-report" data-type="occupancy">
+                        <i class="fas fa-download"></i> إنشاء التقرير
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">التقارير المخصصة</h6>
+            </div>
+            <div class="card-body">
+                <form id="customReportForm">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>نوع التقرير</label>
+                                <select class="form-control" id="reportType">
+                                    <option value="financial">تقرير مالي</option>
+                                    <option value="residents">تقرير المقيمين</option>
+                                    <option value="occupancy">تقرير الإشغال</option>
+                                    <option value="maintenance">تقرير الصيانة</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>من تاريخ</label>
+                                <input type="date" class="form-control" id="fromDate">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>إلى تاريخ</label>
+                                <input type="date" class="form-control" id="toDate">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>صيغة الملف</label>
+                                <select class="form-control" id="format">
+                                    <option value="PDF">PDF</option>
+                                    <option value="Excel">Excel</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-cog"></i> إنشاء تقرير مخصص
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Set default dates
+            var today = new Date();
+            var firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+            var lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+            $('#fromDate').val(firstDay.toISOString().split('T')[0]);
+            $('#toDate').val(lastDay.toISOString().split('T')[0]);
+
+            // Generate predefined reports
+            $('.generate-report').click(function() {
+                var reportType = $(this).data('type');
+                generateReport(reportType, 'PDF');
+            });
+
+            // Generate custom report
+            $('#customReportForm').submit(function(e) {
+                e.preventDefault();
+                var reportType = $('#reportType').val();
+                var format = $('#format').val();
+                generateReport(reportType, format);
+            });
+
+            function generateReport(reportType, format) {
+                var fromDate = $('#fromDate').val();
+                var toDate = $('#toDate').val();
+
+                var url = '/api/reports/' + reportType;
+                if (reportType === 'financial') {
+                    url += '?format=' + format + '&startDate=' + fromDate + '&endDate=' + toDate;
+                } else {
+                    url += '?format=' + format;
+                }
+
+                window.open(url, '_blank');
+            }
+        });
+    </script>
+}

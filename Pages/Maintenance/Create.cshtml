@@ -1,0 +1,76 @@
+﻿@page
+@model MughtaribatHouse.Pages.Maintenance.CreateModel
+@{
+    ViewData["Title"] = "طلب صيانة جديد";
+    ViewData["ActivePage"] = "Maintenance";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">طلب صيانة جديد</h1>
+    <a asp-page="Index" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left"></i> رجوع
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">معلومات طلب الصيانة</h6>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="MaintenanceTask.Title" class="control-label">عنوان الطلب</label>
+                        <input asp-for="MaintenanceTask.Title" class="form-control" />
+                        <span asp-validation-for="MaintenanceTask.Title" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MaintenanceTask.Description" class="control-label">الوصف</label>
+                        <textarea asp-for="MaintenanceTask.Description" class="form-control" rows="4"></textarea>
+                        <span asp-validation-for="MaintenanceTask.Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MaintenanceTask.RoomNumber" class="control-label">رقم الغرفة</label>
+                        <input asp-for="MaintenanceTask.RoomNumber" class="form-control" />
+                        <span asp-validation-for="MaintenanceTask.RoomNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MaintenanceTask.Priority" class="control-label">الأولوية</label>
+                        <select asp-for="MaintenanceTask.Priority" class="form-control">
+                            <option value="Low">منخفضة</option>
+                            <option value="Medium">متوسطة</option>
+                            <option value="High">عالية</option>
+                            <option value="Critical">حرجة</option>
+                        </select>
+                        <span asp-validation-for="MaintenanceTask.Priority" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="MaintenanceTask.AssignedTo" class="control-label">تعيين إلى</label>
+                        <input asp-for="MaintenanceTask.AssignedTo" class="form-control" />
+                        <span asp-validation-for="MaintenanceTask.AssignedTo" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> حفظ
+                        </button>
+                        <a asp-page="Index" class="btn btn-secondary">إلغاء</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

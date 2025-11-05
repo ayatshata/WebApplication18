@@ -1,0 +1,53 @@
+﻿@page
+@model MughtaribatHouse.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "تسجيل الدخول";
+}
+
+<div class="row justify-content-center">
+    <div class="col-xl-5 col-lg-6 col-md-8">
+        <div class="card shadow-lg my-5">
+            <div class="card-body p-5">
+                <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">مرحباً بعودتك!</h1>
+                </div>
+                <form method="post" class="user">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <input asp-for="Input.Email" class="form-control form-control-user"
+                               placeholder="أدخل البريد الإلكتروني..." />
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input asp-for="Input.Password" class="form-control form-control-user"
+                               placeholder="كلمة المرور" />
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox small">
+                            <input asp-for="Input.RememberMe" class="custom-control-input" />
+                            <label class="custom-control-label" asp-for="Input.RememberMe">
+                                تذكرني
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-user btn-block">
+                        تسجيل الدخول
+                    </button>
+                </form>
+                <hr>
+                <div class="text-center">
+                    <a class="small" asp-page="./ForgotPassword">نسيت كلمة المرور؟</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

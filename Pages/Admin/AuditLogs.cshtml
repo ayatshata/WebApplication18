@@ -1,0 +1,81 @@
+﻿@page
+@model MughtaribatHouse.Pages.Admin.AuditLogsModel
+@{
+    ViewData["Title"] = "سجلات التدقيق";
+    ViewData["ActivePage"] = "Admin";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">سجلات التدقيق</h1>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">سجلات النشاط</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>المستخدم</th>
+                                <th>الإجراء</th>
+                                <th>الكيان</th>
+                                <th>الوصف</th>
+                                <th>عنوان IP</th>
+                                <th>التاريخ والوقت</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var log in Model.AuditLogs)
+                            {
+                                <tr>
+                                    <td>@log.User?.FullName</td>
+                                    <td>
+                                        <span class="badge @GetActionBadgeClass(log.Action)">
+                                            @log.Action
+                                        </span>
+                                    </td>
+                                    <td>@log.Entity</td>
+                                    <td>@log.Description</td>
+                                    <td>@log.IpAddress</td>
+                                    <td>@log.Timestamp.ToString("yyyy/MM/dd HH:mm")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetActionBadgeClass(string action)
+    {
+        return action switch
+        {
+            "Create" => "badge-success",
+            "Update" => "badge-primary",
+            "Delete" => "badge-danger",
+            "Login" => "badge-info",
+            "Logout" => "badge-secondary",
+            _ => "badge-secondary"
+        };
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json"
+                },
+                "order": [[5, 'desc']]
+            });
+        });
+    </script>
+}

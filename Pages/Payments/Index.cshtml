@@ -1,0 +1,87 @@
+﻿@page
+@model MughtaribatHouse.Pages.Payments.IndexModel
+@{
+    ViewData["Title"] = "إدارة المدفوعات";
+    ViewData["ActivePage"] = "Payments";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">المدفوعات</h1>
+    <a asp-page="Create" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> تسجيل دفعة جديدة
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">سجل المدفوعات</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>المقيم</th>
+                                <th>المبلغ</th>
+                                <th>تاريخ الدفع</th>
+                                <th>لشهر</th>
+                                <th>طريقة الدفع</th>
+                                <th>معالج بواسطة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var payment in Model.Payments)
+                            {
+                                <tr>
+                                    <td>@payment.Resident?.FullName</td>
+                                    <td>@payment.Amount.ToString("C")</td>
+                                    <td>@payment.PaymentDate.ToString("yyyy/MM/dd")</td>
+                                    <td>@payment.ForMonth.ToString("yyyy/MM")</td>
+                                    <td>@payment.PaymentMethod</td>
+                                    <td>@payment.ProcessedByUser?.FullName</td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm delete-payment" data-id="@payment.Id">
+                                            <i class="fas fa-trash"></i> حذف
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json"
+                },
+                "order": [[2, 'desc']]
+            });
+
+            $('.delete-payment').click(function() {
+                var paymentId = $(this).data('id');
+                if (confirm('هل تريد حذف هذه الدفعة؟')) {
+                    $.ajax({
+                        url: '/api/payments/' + paymentId,
+                        type: 'DELETE',
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function() {
+                            alert('فشل في حذف الدفعة');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

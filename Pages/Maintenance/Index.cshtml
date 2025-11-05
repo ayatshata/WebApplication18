@@ -1,0 +1,102 @@
+﻿@page
+@model MughtaribatHouse.Pages.Maintenance.IndexModel
+@{
+    ViewData["Title"] = "إدارة الصيانة";
+    ViewData["ActivePage"] = "Maintenance";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">طلبات الصيانة</h1>
+    <a asp-page="Create" class="btn btn-primary btn-sm">
+        <i class="fas fa-plus"></i> طلب صيانة جديد
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">جميع طلبات الصيانة</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>العنوان</th>
+                                <th>رقم الغرفة</th>
+                                <th>الأولوية</th>
+                                <th>الحالة</th>
+                                <th>تاريخ التبليغ</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var task in Model.MaintenanceTasks)
+                            {
+                                <tr>
+                                    <td>@task.Title</td>
+                                    <td>@task.RoomNumber</td>
+                                    <td>
+                                        <span class="badge @GetPriorityBadgeClass(task.Priority)">
+                                            @task.Priority
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge @GetStatusBadgeClass(task.Status)">
+                                            @task.Status
+                                        </span>
+                                    </td>
+                                    <td>@task.ReportedDate.ToString("yyyy/MM/dd")</td>
+                                    <td>
+                                        <a asp-page="Details" asp-route-id="@task.Id" class="btn btn-info btn-sm">
+                                            <i class="fas fa-eye"></i> تفاصيل
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    public string GetPriorityBadgeClass(string priority)
+    {
+        return priority switch
+        {
+            "Critical" => "badge-danger",
+            "High" => "badge-warning",
+            "Medium" => "badge-info",
+            "Low" => "badge-secondary",
+            _ => "badge-secondary"
+        };
+    }
+
+    public string GetStatusBadgeClass(string status)
+    {
+        return status switch
+        {
+            "Completed" => "badge-success",
+            "InProgress" => "badge-primary",
+            "Pending" => "badge-warning",
+            "Cancelled" => "badge-danger",
+            _ => "badge-secondary"
+        };
+    }
+}
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Arabic.json"
+                }
+            });
+        });
+    </script>
+}
