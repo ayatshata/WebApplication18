@@ -278,3 +278,13 @@ C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.
 C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\wwwroot\lib\fontawesome\metadata\icon-families.json
 C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\wwwroot\lib\fontawesome\package.json
 C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\wwwroot\lib\microsoft\package.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\web.config
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\appsettings.Development.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\appsettings.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\libman.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\MughtaribatHouse.deps.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\MughtaribatHouse.runtimeconfig.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\MughtaribatHouse.staticwebassets.endpoints.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\wwwroot\lib\fontawesome\metadata\icon-families.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\wwwroot\lib\fontawesome\package.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Release\net8.0\publish\publish\publish\publish\publish\publish\publish\publish\wwwroot\lib\microsoft\package.json

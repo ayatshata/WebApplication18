@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MughtaribatHouse")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+127faa5db45cd1ae1e66bc89956bc5279076d874")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f699a98656887eb18d567f9ad6786c205e1e8ac6")]
 [assembly: System.Reflection.AssemblyProductAttribute("MughtaribatHouse")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MughtaribatHouse")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
