@@ -1,0 +1,36 @@
+﻿@page
+@model MughtaribatHouse.Pages.Reviews.CreateModel
+@{
+    ViewData["Title"] = "إضافة مراجعة جديدة";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Review.ReviewerName"></label>
+        <input asp-for="Review.ReviewerName" class="form-control" />
+        <span asp-validation-for="Review.ReviewerName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Review.ReviewerEmail"></label>
+        <input asp-for="Review.ReviewerEmail" class="form-control" />
+        <span asp-validation-for="Review.ReviewerEmail" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Review.Rating"></label>
+        <input asp-for="Review.Rating" class="form-control" />
+        <span asp-validation-for="Review.Rating" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Review.Comment"></label>
+        <textarea asp-for="Review.Comment" class="form-control"></textarea>
+        <span asp-validation-for="Review.Comment" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">حفظ</button>
+    <a asp-page="Index" class="btn btn-secondary">إلغاء</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

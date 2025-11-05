@@ -1,8 +1,4 @@
-﻿/* ==========================
-   CSS أساسي للصفحة
-   ========================== */
-
-/* إشعار وردي مع حركة SlideDown */
+﻿
 .notification-bar {
     position: fixed;
     top: 15px;
@@ -26,7 +22,7 @@
     margin-top: 5px;
 }
 
-/* حركة SlideDown */
+
 @keyframes slideDown {
     from {
         opacity: 0;
@@ -39,11 +35,9 @@
     }
 }
 
-/* ==========================
-   شريط جانبي
-   ========================== */
+
 .sidebar {
-    background-color: #f7a8c3 !important;
+    background-color: pink !important;
 }
 
     .sidebar .nav-link {
@@ -62,9 +56,7 @@
         font-weight: 600;
     }
 
-/* ==========================
-   Topbar
-   ========================== */
+
 .topbar {
     background-color: #fff !important;
     border-bottom: 3px solid #f7a8c3;
@@ -80,9 +72,7 @@
     border: 2px solid #f7a8c3;
 }
 
-/* ==========================
-   الروابط والأزرار
-   ========================== */
+
 a.navbar-brand {
     white-space: normal;
     text-align: center;
@@ -105,9 +95,7 @@ a {
     border-color: #1861ac;
 }
 
-/* ==========================
-   الحدود والظل
-   ========================== */
+
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
@@ -120,17 +108,12 @@ a {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-/* ==========================
-   أزرار وسياسة
-   ========================== */
+
 button.accept-policy {
     font-size: 1rem;
     line-height: inherit;
 }
 
-/* ==========================
-   Footer
-   ========================== */
 .footer {
     position: absolute;
     bottom: 0;

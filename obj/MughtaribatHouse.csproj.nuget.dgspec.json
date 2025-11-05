@@ -98,6 +98,10 @@
               "target": "Package",
               "version": "[8.0.0, )"
             },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
             "QuestPDF": {
               "target": "Package",
               "version": "[2024.3.7, )"

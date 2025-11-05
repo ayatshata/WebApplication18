@@ -1,133 +1,91 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MughtaribatHouse.Models.DTOs;
-using MughtaribatHouse.Services;
+using Microsoft.EntityFrameworkCore;
+using MughtaribatHouse.Data;
+using MughtaribatHouse.Models;
 
 namespace MughtaribatHouse.Controllers
 {
     [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ResidentsController : BaseApiController
+    public class ResidentsController : Controller
     {
-        private readonly IResidentService _residentService;
+        private readonly ApplicationDbContext _context;
 
-        public ResidentsController(IResidentService residentService)
+        public ResidentsController(ApplicationDbContext context)
         {
-            _residentService = residentService;
+            _context = context;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetResidents()
+        public async Task<IActionResult> Index()
         {
-            var residents = await _residentService.GetResidentsAsync();
-            return Success(residents);
+            var residents = await _context.Residents.ToListAsync();
+            return View(residents);
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetResident(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var resident = await _residentService.GetResidentAsync(id);
-            if (resident == null)
-                return NotFound("المقيم غير موجود");
+            var resident = await _context.Residents.FindAsync(id);
+            if (resident == null) return NotFound();
+            return View(resident);
+        }
 
-            return Success(resident);
+        public IActionResult Create()
+        {
+            return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> CreateResident([FromBody] CreateResidentDto dto)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Resident resident)
         {
-            if (!ModelState.IsValid)
-                return Error("بيانات المقيم غير صحيحة", ModelState);
-
-            try
+            if (ModelState.IsValid)
             {
-                var resident = await _residentService.CreateResidentAsync(dto, UserId);
-                return Success(resident, "تم إنشاء المقيم بنجاح");
+                _context.Add(resident);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            return View(resident);
         }
 
-        [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> UpdateResident(int id, [FromBody] UpdateResidentDto dto)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (!ModelState.IsValid)
-                return Error("بيانات التحديث غير صحيحة", ModelState);
-
-            try
-            {
-                var resident = await _residentService.UpdateResidentAsync(id, dto);
-                return Success(resident, "تم تحديث بيانات المقيم بنجاح");
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            var resident = await _context.Residents.FindAsync(id);
+            if (resident == null) return NotFound();
+            return View(resident);
         }
 
-        [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> DeleteResident(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Resident resident)
         {
-            var result = await _residentService.DeleteResidentAsync(id);
-            if (!result)
-                return NotFound("المقيم غير موجود");
-
-            return Success(null, "تم حذف المقيم بنجاح");
-        }
-
-        [HttpPost("{id}/checkout")]
-        [Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> CheckOutResident(int id, [FromBody] CheckOutRequest request)
-        {
-            try
+            if (id != resident.Id) return NotFound();
+            if (ModelState.IsValid)
             {
-                var resident = await _residentService.CheckOutResidentAsync(id, request.CheckOutDate);
-                return Success(resident, "تم تسجيل خروج المقيم بنجاح");
+                _context.Update(resident);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
             }
-            catch (ArgumentException ex)
+            return View(resident);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var resident = await _context.Residents.FindAsync(id);
+            if (resident == null) return NotFound();
+            return View(resident);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var resident = await _context.Residents.FindAsync(id);
+            if (resident != null)
             {
-                return NotFound(ex.Message);
+                _context.Residents.Remove(resident);
+                await _context.SaveChangesAsync();
             }
-            catch (Exception ex)
-            {
-                return Error(ex.Message);
-            }
+            return RedirectToAction(nameof(Index));
         }
-
-        [HttpGet("{id}/payments")]
-        public async Task<IActionResult> GetResidentPayments(int id)
-        {
-            var payments = await _residentService.GetResidentPaymentsAsync(id);
-            return Success(payments);
-        }
-
-        [HttpGet("{id}/attendance")]
-        public async Task<IActionResult> GetResidentAttendance(int id, [FromQuery] DateTime? fromDate, [FromQuery] DateTime? toDate)
-        {
-            var attendance = await _residentService.GetResidentAttendanceAsync(id, fromDate, toDate);
-            return Success(attendance);
-        }
-
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchResidents([FromQuery] string term)
-        {
-            var residents = await _residentService.SearchResidentsAsync(term);
-            return Success(residents);
-        }
-    }
-
-    public class CheckOutRequest
-    {
-        public DateTime CheckOutDate { get; set; }
     }
 }
