@@ -26,7 +26,7 @@ MughtaribatHouse/
 ├── Controllers/   API
 ├── Data/ 
 ├── Models/ 
-├── Pages/ # واجهة المستخدم
+├── Pages/ 
 
 MughtaribatHouse/
 ├── 📂 Controllers/       (API)
@@ -36,6 +36,35 @@ MughtaribatHouse/
 ├── 📂 Services/           
 ├── 📂 BackgroundServices/  
 ├── 📂 wwwroot/     
-└── 📄 Program.cs      
+└── 📄 Program.cs    /////////////////////////////////////////////////////////////////
+<img width="11519" height="5939" alt="my tables jpg" src="https://github.com/user-attachments/assets/4682339e-57b7-4a0a-9e9b-6a95355d0224" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ├── Services/ # منطق الأعمال
 └── wwwroot/ # ملفات ثابتة
