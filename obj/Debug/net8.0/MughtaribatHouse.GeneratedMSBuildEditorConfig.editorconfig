@@ -56,20 +56,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDcmVhdGUuY3NodG1s
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEZXRhaWxzLmNzaHRtbA==
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xFZGl0LmNzaHRtbA==
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xJbmRleC5jc2h0bWw=
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Error.cshtml]
@@ -90,6 +94,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Maintenance/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Notifications/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9uc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Notifications/Index.cshtml]

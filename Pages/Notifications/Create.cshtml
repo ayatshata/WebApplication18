@@ -1,0 +1,27 @@
+﻿@page
+@model MughtaribatHouse.Pages.Notifications.CreateModel
+@{
+    ViewData["Title"] = "إنشاء إشعار جديد";
+}
+
+<h2>إنشاء إشعار جديد</h2>
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Notification.Message"></label>
+        <input asp-for="Notification.Message" class="form-control" />
+        <span asp-validation-for="Notification.Message" class="text-danger"></span>
+    </div>
+
+    <div class="form-check">
+        <input asp-for="Notification.IsRead" class="form-check-input" />
+        <label asp-for="Notification.IsRead" class="form-check-label">مقروء</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-2">إنشاء</button>
+    <a asp-page="Index" class="btn btn-secondary mt-2">رجوع</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

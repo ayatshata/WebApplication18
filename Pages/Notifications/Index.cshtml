@@ -25,7 +25,7 @@
                     @foreach (var notification in Model.Notifications)
                     {
                         <div class="list-group-item list-group-item-action flex-column align-items-start
-                                        @(notification.IsRead ? "" : "list-group-item-primary")">
+                                            @(notification.IsRead ? "" : "list-group-item-primary")">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
                                     @if (!notification.IsRead)

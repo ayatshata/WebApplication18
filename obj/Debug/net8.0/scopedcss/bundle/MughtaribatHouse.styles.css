@@ -1,9 +1,5 @@
 /* _content/MughtaribatHouse/Pages/Shared/_Layout.cshtml.rz.scp.css */
-/* ==========================
-   CSS أساسي للصفحة
-   ========================== */
 
-/* إشعار وردي مع حركة SlideDown */
 .notification-bar[b-zdn7r3mum4] {
     position: fixed;
     top: 15px;
@@ -27,7 +23,7 @@
     margin-top: 5px;
 }
 
-/* حركة SlideDown */
+
 @keyframes slideDown-b-zdn7r3mum4 {
     from {
         opacity: 0;
@@ -40,11 +36,9 @@
     }
 }
 
-/* ==========================
-   شريط جانبي
-   ========================== */
+
 .sidebar[b-zdn7r3mum4] {
-    background-color: #f7a8c3 !important;
+    background-color: pink !important;
 }
 
     .sidebar .nav-link[b-zdn7r3mum4] {
@@ -63,9 +57,7 @@
         font-weight: 600;
     }
 
-/* ==========================
-   Topbar
-   ========================== */
+
 .topbar[b-zdn7r3mum4] {
     background-color: #fff !important;
     border-bottom: 3px solid #f7a8c3;
@@ -81,9 +73,7 @@
     border: 2px solid #f7a8c3;
 }
 
-/* ==========================
-   الروابط والأزرار
-   ========================== */
+
 a.navbar-brand[b-zdn7r3mum4] {
     white-space: normal;
     text-align: center;
@@ -106,9 +96,7 @@ a[b-zdn7r3mum4] {
     border-color: #1861ac;
 }
 
-/* ==========================
-   الحدود والظل
-   ========================== */
+
 .border-top[b-zdn7r3mum4] {
     border-top: 1px solid #e5e5e5;
 }
@@ -121,17 +109,12 @@ a[b-zdn7r3mum4] {
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
-/* ==========================
-   أزرار وسياسة
-   ========================== */
+
 button.accept-policy[b-zdn7r3mum4] {
     font-size: 1rem;
     line-height: inherit;
 }
 
-/* ==========================
-   Footer
-   ========================== */
 .footer[b-zdn7r3mum4] {
     position: absolute;
     bottom: 0;

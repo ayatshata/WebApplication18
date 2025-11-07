@@ -1,0 +1,44 @@
+﻿@page
+@model MughtaribatHouse.Pages.Documents.CreateModel
+@{
+    ViewData["Title"] = "رفع مستند جديد";
+}
+
+<h2 class="mb-4">رفع مستند جديد</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Document.Title"></label>
+        <input asp-for="Document.Title" class="form-control" />
+        <span asp-validation-for="Document.Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Document.Description"></label>
+        <textarea asp-for="Document.Description" class="form-control"></textarea>
+        <span asp-validation-for="Document.Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UploadFile"></label>
+        <input asp-for="UploadFile" type="file" class="form-control" />
+        <span asp-validation-for="UploadFile" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Document.Category"></label>
+        <input asp-for="Document.Category" class="form-control" />
+    </div>
+
+    <div class="form-check">
+        <input asp-for="Document.IsPublic" class="form-check-input" />
+        <label asp-for="Document.IsPublic" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">رفع</button>
+    <a asp-page="Index" class="btn btn-secondary mt-3">رجوع</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

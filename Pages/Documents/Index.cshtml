@@ -1,0 +1,73 @@
+﻿@page
+@model MughtaribatHouse.Pages.Documents.IndexModel
+@{
+    ViewData["Title"] = "الملفات";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">إدارة الملفات</h2>
+
+    <!-- نموذج البحث -->
+    <form method="get" class="d-flex mb-3" style="gap:10px;">
+        <input type="text"
+               name="Search"
+               value="@Model.Search"
+               class="form-control"
+               placeholder="ابحث عن ملف..." />
+        <button type="submit" class="btn btn-primary">بحث</button>
+    </form>
+
+    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+    {
+        <div class="mb-3 text-end">
+            <a asp-page="Create" class="btn btn-success">رفع ملف جديد</a>
+        </div>
+    }
+
+    <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>العنوان</th>
+                <th>الفئة</th>
+                <th>المقيم</th>
+                <th>الحجم</th>
+                <th>تاريخ الرفع</th>
+                <th>حالة النشر</th>
+                <th>إجراءات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Documents == null || !Model.Documents.Any())
+            {
+                <tr>
+                    <td colspan="7" class="text-center text-muted">لا توجد ملفات حالياً</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var doc in Model.Documents)
+                {
+                    <tr>
+                        <td>@doc.Title</td>
+                        <td>@doc.Category</td>
+                        <td>@(doc.Resident?.FullName ?? "-")</td>
+                        <td>@string.Format("{0:N2} KB", doc.FileSize / 1024.0)</td>
+                        <td>@doc.UploadedAt.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</td>
+                        <td>@(doc.IsPublic ? "عام" : "خاص")</td>
+                        <td>
+                            <a asp-page="Details" asp-route-id="@doc.Id" class="btn btn-sm btn-info">تفاصيل</a>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+                            {
+                                <a asp-page="Edit" asp-route-id="@doc.Id" class="btn btn-sm btn-warning">تعديل</a>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                            {
+                                <a asp-page="Delete" asp-route-id="@doc.Id" class="btn btn-sm btn-danger">حذف</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
