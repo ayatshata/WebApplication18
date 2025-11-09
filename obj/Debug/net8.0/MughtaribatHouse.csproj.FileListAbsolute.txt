@@ -331,3 +331,13 @@ C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\
 C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll
 C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\skynet\source\repos\WebApplication18\WebApplication18\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\web.config
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\appsettings.Development.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\appsettings.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\libman.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\MughtaribatHouse.deps.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\MughtaribatHouse.runtimeconfig.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\MughtaribatHouse.staticwebassets.endpoints.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\wwwroot\lib\fontawesome\metadata\icon-families.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\wwwroot\lib\fontawesome\package.json
+C:\Users\skynet\source\repos\WebApplication18\WebApplication18\bin\Debug\net8.0\publish\wwwroot\lib\microsoft\package.json

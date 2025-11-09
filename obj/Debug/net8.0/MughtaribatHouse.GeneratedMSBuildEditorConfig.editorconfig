@@ -128,6 +128,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Residents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Residents/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

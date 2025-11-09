@@ -1,0 +1,55 @@
+﻿@page "{id:int}"
+@model MughtaribatHouse.Pages.Residents.DetailsModel
+@{
+    ViewData["Title"] = "تفاصيل المقيم";
+    ViewData["ActivePage"] = "Residents";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">تفاصيل المقيم</h1>
+    <a asp-page="Index" class="btn btn-secondary btn-sm">
+        <i class="fas fa-arrow-left"></i> العودة للقائمة
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">@Model.Resident.FullName</h6>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-4">الاسم الكامل:</dt>
+                    <dd class="col-sm-8">@Model.Resident.FullName</dd>
+
+                    <dt class="col-sm-4">رقم الهوية:</dt>
+                    <dd class="col-sm-8">@Model.Resident.IdentityNumber</dd>
+
+                    <dt class="col-sm-4">رقم الجوال:</dt>
+                    <dd class="col-sm-8">@Model.Resident.PhoneNumber</dd>
+
+                    <dt class="col-sm-4">رقم الغرفة:</dt>
+                    <dd class="col-sm-8">@Model.Resident.RoomNumber</dd>
+
+                    <dt class="col-sm-4">الإيجار الشهري:</dt>
+                    <dd class="col-sm-8">@Model.Resident.MonthlyRent.ToString("C")</dd>
+
+                    <dt class="col-sm-4">الحالة:</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge @(Model.Resident.IsActive ? "badge-success" : "badge-danger")">
+                            @(Model.Resident.IsActive ? "نشط" : "مغادر")
+                        </span>
+                    </dd>
+
+                    <dt class="col-sm-4">تاريخ التسكين:</dt>
+                    <dd class="col-sm-8">@Model.Resident.CheckInDate.ToString("yyyy/MM/dd")</dd>
+                </dl>
+
+                <a asp-page="Edit" asp-route-id="@Model.Resident.Id" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> تعديل المقيم
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

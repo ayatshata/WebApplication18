@@ -1,11 +1,19 @@
 is_global = true
 build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
 build_property.TargetPlatformMinVersion = 
 build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
 build_property.PlatformNeutralAssembly = 
 build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MughtaribatHouse
 build_property.RootNamespace = MughtaribatHouse
@@ -48,20 +56,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xDcmVhdGUuY3NodG1s
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xEZXRhaWxzLmNzaHRtbA==
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xFZGl0LmNzaHRtbA==
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Docs/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jc1xJbmRleC5jc2h0bWw=
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Documents/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRG9jdW1lbnRzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Error.cshtml]
@@ -84,8 +96,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTWFpbnRlbmFuY2VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Notifications/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9uc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Notifications/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTm90aWZpY2F0aW9uc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Payments/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGF5bWVudHNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Payments/Index.cshtml]
@@ -104,12 +124,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Residents/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Residents/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Residents/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Residents/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVzaWRlbnRzXF9WaWV3SW1wb3J0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Reviews/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV2aWV3c1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Reviews/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmV2aWV3c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/skynet/source/repos/WebApplication18/WebApplication18/Pages/Settings/Index.cshtml]
