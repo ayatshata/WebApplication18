@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MughtaribatHouse")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0001bd444f1d63e67963a2184a5a6148f74116dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e594685e8e5f817d4ecd2b873a32f91fcb75908d")]
 [assembly: System.Reflection.AssemblyProductAttribute("MughtaribatHouse")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MughtaribatHouse")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

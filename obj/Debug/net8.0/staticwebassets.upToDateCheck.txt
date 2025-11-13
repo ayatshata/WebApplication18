@@ -1,8 +1,10 @@
+wwwroot\css\flowers.css
 wwwroot\css\site-rtl.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\bg-flowers.jpg
 wwwroot\images\Cute icon 🌷 صوره كيوته  للبروفايل 🌸.jpeg
+wwwroot\images\flower.png
 wwwroot\images\logo.png.jpeg
 wwwroot\images\undraw_profile.svg
 wwwroot\js\charts.js

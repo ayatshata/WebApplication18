@@ -13,12 +13,23 @@ namespace MughtaribatHouse.Pages.Notifications
             _notificationService = notificationService;
         }
 
-        public List<Notification> Notifications { get; set; }
+        public List<Notification> Notifications { get; set; } = new();
 
         public async Task OnGetAsync()
         {
+  
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            Notifications = await _notificationService.GetUserNotificationsAsync(userId);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+         
+                Notifications = await _notificationService.GetUserNotificationsAsync(userId);
+            }
+            else
+            {
+           
+                Notifications = new List<Notification>();
+            }
         }
     }
 }

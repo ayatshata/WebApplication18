@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MughtaribatHouse.Models
 {
@@ -13,6 +14,9 @@ namespace MughtaribatHouse.Models
         [Required]
         public DateTime Date { get; set; }
 
+        public TimeSpan? CheckInTime { get; set; } 
+        public TimeSpan? CheckOutTime { get; set; }
+
         public bool IsPresent { get; set; } = true;
 
         [StringLength(500)]
@@ -22,7 +26,7 @@ namespace MughtaribatHouse.Models
 
         public string RecordedByUserId { get; set; }
 
- 
+
         public virtual Resident Resident { get; set; }
         public virtual ApplicationUser RecordedByUser { get; set; }
     }
