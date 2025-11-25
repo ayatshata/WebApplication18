@@ -1,0 +1,61 @@
+﻿@page
+@model MughtaribatHouse.Pages.Payments.CreateModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "تسجيل دفعة جديدة";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-header text-white text-center" style="background-color: #ff69b4;">
+            <h3 class="m-0">🌸 تسجيل دفعة جديدة 🌸</h3>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Payment.ResidentId" class="form-label fw-bold">اسم المقيمة</label>
+                        <select asp-for="Payment.ResidentId" asp-items="Model.Residents" class="form-select"></select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Payment.Amount" class="form-label fw-bold">المبلغ</label>
+                        <input asp-for="Payment.Amount" class="form-control" placeholder="أدخلي المبلغ" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label asp-for="Payment.ForMonth" class="form-label fw-bold">عن شهر</label>
+                        <input asp-for="Payment.ForMonth" type="month" class="form-control" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label asp-for="Payment.PaymentMethod" class="form-label fw-bold">طريقة الدفع</label>
+                        <select asp-for="Payment.PaymentMethod" class="form-select">
+                            <option value="">اختاري</option>
+                            <option>نقدي</option>
+                            <option>تحويل بنكي</option>
+                            <option>فودافون كاش</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg px-5">
+                        <i class="fas fa-save"></i> حفظ
+                    </button>
+                    <a asp-page="Index" class="btn btn-outline-secondary btn-lg px-5">
+                        <i class="fas fa-arrow-left"></i> رجوع
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

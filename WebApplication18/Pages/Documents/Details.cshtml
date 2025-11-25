@@ -1,0 +1,35 @@
+﻿@page
+@model MughtaribatHouse.Pages.Documents.DetailsModel
+@{
+    ViewData["Title"] = "تفاصيل المستند";
+}
+
+<h2>تفاصيل المستند: @Model.Document.Title</h2>
+
+<dl class="row">
+    <dt class="col-sm-3">العنوان:</dt>
+    <dd class="col-sm-9">@Model.Document.Title</dd>
+
+    <dt class="col-sm-3">الوصف:</dt>
+    <dd class="col-sm-9">@Model.Document.Description ?? "-"</dd>
+
+    <dt class="col-sm-3">التصنيف:</dt>
+    <dd class="col-sm-9">@Model.Document.Category</dd>
+
+    <dt class="col-sm-3">نوع الملف:</dt>
+    <dd class="col-sm-9">@Model.Document.FileType</dd>
+
+    <dt class="col-sm-3">تاريخ الرفع:</dt>
+    <dd class="col-sm-9">@Model.Document.UploadedAt.ToLocalTime().ToString("yyyy/MM/dd HH:mm")</dd>
+
+    <dt class="col-sm-3">مرفوع بواسطة:</dt>
+    <dd class="col-sm-9">@Model.Document.UploadedByUser?.UserName</dd>
+
+    <dt class="col-sm-3">الصلاحية:</dt>
+    <dd class="col-sm-9">@((Model.Document.IsPublic) ? "عام" : "خاص")</dd>
+</dl>
+
+<p>
+    <a asp-page="Index" class="btn btn-secondary">رجوع</a>
+    <a asp-page="Edit" asp-route-id="@Model.Document.Id" class="btn btn-warning">تعديل</a>
+</p>

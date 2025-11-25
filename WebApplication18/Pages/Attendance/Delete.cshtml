@@ -1,0 +1,14 @@
+﻿@page "{id:int}"
+@model MughtaribatHouse.Pages.Attendance.DeleteModel
+
+<h2 class="text-center mt-4 text-danger">❌ حذف السجل</h2>
+
+<div class="alert alert-danger mt-4">
+    <p>هل أنتِ متأكدة أنك تريدين حذف سجل الحضور الخاص بـ:</p>
+    <h4>@Model.Attendance.Resident.FullName — @Model.Attendance.Date.ToShortDateString()</h4>
+</div>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">حذف</button>
+    <a asp-page="/Attendance/Index" class="btn btn-secondary">إلغاء</a>
+</form>

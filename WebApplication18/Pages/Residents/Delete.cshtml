@@ -1,0 +1,42 @@
+﻿@page "{id:int}"
+@model MughtaribatHouse.Pages.Residents.DeleteModel
+@{
+    ViewData["Title"] = "حذف المقيم";
+    ViewData["ActivePage"] = "Residents";
+}
+
+<div class="container mt-4">
+    <h2 class="text-danger mb-4">هل أنت متأكد أنك تريد حذف هذا المقيم؟</h2>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">الاسم الكامل</dt>
+                <dd class="col-sm-9">@Model.Resident.FullName</dd>
+
+                <dt class="col-sm-3">رقم الهوية</dt>
+                <dd class="col-sm-9">@Model.Resident.IdentityNumber</dd>
+
+                <dt class="col-sm-3">رقم الجوال</dt>
+                <dd class="col-sm-9">@Model.Resident.PhoneNumber</dd>
+
+                <dt class="col-sm-3">رقم الغرفة</dt>
+                <dd class="col-sm-9">@Model.Resident.RoomNumber</dd>
+
+                <dt class="col-sm-3">الإيجار الشهري</dt>
+                <dd class="col-sm-9">@Model.Resident.MonthlyRent.ToString("C")</dd>
+
+                <dt class="col-sm-3">تاريخ التسكين</dt>
+                <dd class="col-sm-9">@Model.Resident.CheckInDate.ToString("yyyy/MM/dd")</dd>
+            </dl>
+
+            <form method="post">
+                <input type="hidden" asp-for="Resident.Id" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> تأكيد الحذف
+                </button>
+                <a asp-page="Index" class="btn btn-secondary">إلغاء</a>
+            </form>
+        </div>
+    </div>
+</div>

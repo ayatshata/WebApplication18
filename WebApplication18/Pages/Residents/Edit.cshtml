@@ -1,1 +1,67 @@
-﻿
+﻿@page "{id:int}"
+@model MughtaribatHouse.Pages.Residents.EditModel
+@{
+    ViewData["Title"] = "تعديل بيانات المقيمة";
+    ViewData["ActivePage"] = "Residents";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-primary">تعديل بيانات المقيمة</h2>
+
+    <form method="post">
+        <input type="hidden" asp-for="Resident.Id" />
+
+        <div class="mb-3">
+            <label asp-for="Resident.FullName" class="form-label">الاسم الكامل</label>
+            <input asp-for="Resident.FullName" class="form-control" />
+            <span asp-validation-for="Resident.FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Resident.IdentityNumber" class="form-label">رقم الهوية</label>
+            <input asp-for="Resident.IdentityNumber" class="form-control" />
+            <span asp-validation-for="Resident.IdentityNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Resident.PhoneNumber" class="form-label">رقم الجوال</label>
+            <input asp-for="Resident.PhoneNumber" class="form-control" />
+            <span asp-validation-for="Resident.PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Resident.RoomNumber" class="form-label">رقم الغرفة</label>
+            <input asp-for="Resident.RoomNumber" class="form-control" />
+            <span asp-validation-for="Resident.RoomNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Resident.MonthlyRent" class="form-label">الإيجار الشهري</label>
+            <input asp-for="Resident.MonthlyRent" type="number" class="form-control" />
+            <span asp-validation-for="Resident.MonthlyRent" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Resident.CheckInDate" class="form-label">تاريخ التسكين</label>
+            <input asp-for="Resident.CheckInDate" type="date" class="form-control" />
+            <span asp-validation-for="Resident.CheckInDate" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Resident.IsActive" class="form-label">الحالة</label>
+            <select asp-for="Resident.IsActive" class="form-select">
+                <option value="true">نشط</option>
+                <option value="false">مغادر</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-warning">
+            <i class="fas fa-save"></i> حفظ التعديلات
+        </button>
+        <a asp-page="Index" class="btn btn-secondary">رجوع</a>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

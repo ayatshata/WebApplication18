@@ -1,5 +1,5 @@
 ﻿@page
-@model MughtaribatHouse.Pages.IndexModel
+@model MughtaribatHouse.Pages.Attendance.IndexModel
 @{
     ViewData["Title"] = "دار الزهور للمغتربات - الرئيسية";
 }
@@ -122,6 +122,24 @@
             font-weight: bold;
             margin-top: 10px;
         }
+
+        .attendance-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 50px;
+            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.2);
+        }
+
+        .attendance-title {
+            color: #d63384;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        table {
+            background-color: #fff0f5;
+        }
     </style>
 </head>
 <body>
@@ -130,8 +148,6 @@
             <div class="col-md-8">
                 <div class="card welcome-card">
                     <div class="card-body">
-
-                   
                         <img src="~/images/logo.png.jpeg" alt="شعار دار الزهور" class="logo" />
                         <h1 class="display-5 main-title mb-3">🌸 دار الزهور للمغتربات 🌸</h1>
                         <p class="lead mb-4">نظام إدارة مساكن الطالبات والموظفات</p>
@@ -166,7 +182,6 @@
                                     <p class="card-text">يُرجى تسجيل الدخول للوصول إلى النظام</p>
                                     <div class="d-grid gap-2">
                                         <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-lg">تسجيل الدخول</a>
-                                        <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline-secondary btn-lg">إنشاء حساب جديد</a>
                                     </div>
                                 </div>
                             </div>
@@ -186,9 +201,98 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+
+                @if (User?.Identity?.IsAuthenticated == true)
+                {
+                    <div class="attendance-section mt-5 text-start">
+                        <h3 class="attendance-title text-center">🕒 إدارة الحضور والانصراف</h3>
+
+                        @* رسائل التنبيه *@
+                        @if (TempData["Success"] != null)
+                        {
+                            <div class="alert alert-success">@TempData["Success"]</div>
+                        }
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger">@TempData["Error"]</div>
+                        }
+
+                        <form method="post" class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">المقيمة</label>
+                                <select asp-for="Input.ResidentId" asp-items="Model.ResidentsSelectList" class="form-select">
+                                    <option value="">اختاري المقيمة</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">التاريخ</label>
+                                <input asp-for="Input.Date" class="form-control" type="date" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">وقت الدخول</label>
+                                <input asp-for="CheckInTimeString" class="form-control" type="time" />
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">وقت الخروج</label>
+                                <input asp-for="CheckOutTimeString" class="form-control" type="time" />
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">ملاحظات</label>
+                                <input asp-for="Input.Notes" class="form-control" placeholder="اكتبي ملاحظة إن وُجدت" />
+                            </div>
+                            <div class="col-12 text-center mt-3">
+                                <button type="submit" class="btn btn-success px-5">💖 تسجيل الحضور</button>
+                            </div>
+                        </form>
+
+                        <hr class="my-4" />
+
+                        <h5 class="text-center text-secondary mb-3">📋 السجلات المسجلة</h5>
+
+                        @if (Model.AllAttendances != null && Model.AllAttendances.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>المقيمة</th>
+                                            <th>التاريخ</th>
+                                            <th>الدخول</th>
+                                            <th>الخروج</th>
+                                            <th>ملاحظات</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.AllAttendances)
+                                        {
+                                            <tr>
+                                                <td>@item.Resident?.FullName</td>
+                                                <td>@item.Date.ToShortDateString()</td>
+                                                <td>@item.CheckInTime?.ToString(@"hh\:mm")</td>
+                                                <td>@item.CheckOutTime?.ToString(@"hh\:mm")</td>
+                                                <td>@item.Notes</td>
+                                                <td>
+                                                    <a asp-page="/Attendance/Index" asp-route-editId="@item.Id" class="btn btn-sm btn-info">✏️ تعديل</a>
+                                                    <a asp-page="/Attendance/Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">🗑️ حذف</a>
+                                                    <a asp-page="/Attendance/Details" asp-route-id="@item.Id" class="btn btn-sm btn-primary">ℹ️ التفاصيل</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert-info text-center">
+                                لا توجد سجلات حضور حاليًا 💮
+                            </div>
+                        }
+                    </div>
+                }
             </div>
         </div>
     </div>

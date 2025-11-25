@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿
+=======
+﻿/* ==========================
+   Arabic font and RTL support
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
 
 :root {
@@ -39,7 +45,13 @@ body {
             margin-right: 0;
         }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Card adjustments
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .card {
     box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
     border: 1px solid #e3e6f0;
@@ -57,7 +69,13 @@ body {
     text-align: right;
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Buttons
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .btn {
     font-weight: 500;
 }
@@ -82,8 +100,14 @@ body {
     border-color: var(--warning-color);
 }
 
+<<<<<<< HEAD
 
 
+=======
+/* ==========================
+   Badges
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .badge-primary {
     background-color: var(--primary-color);
 }
@@ -104,6 +128,12 @@ body {
     background-color: var(--info-color);
 }
 
+<<<<<<< HEAD
+=======
+/* ==========================
+   Forms
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .form-control {
     text-align: right;
 }
@@ -118,7 +148,13 @@ body {
     margin-left: 0;
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Navbar adjustments
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .navbar-nav {
     padding-right: 0;
 }
@@ -134,7 +170,13 @@ body {
     text-align: left;
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Chart containers
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .chart-area, .chart-pie {
     position: relative;
     width: 100%;
@@ -148,7 +190,13 @@ body {
     height: 15rem;
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Loading spinner
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .loading-spinner {
     display: inline-block;
     width: 1rem;
@@ -169,7 +217,13 @@ body {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Text & Borders
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .text-small {
     font-size: 0.875rem;
 }
@@ -194,7 +248,13 @@ body {
     border-left: 0.25rem solid var(--danger-color) !important;
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Responsive adjustments
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 @media (max-width: 768px) {
     .sidebar {
         width: 100%;
@@ -209,7 +269,13 @@ body {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Print adjustments
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 @media print {
     .no-print {
         display: none !important;
@@ -221,7 +287,13 @@ body {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Notification bar (pink)
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .notification-bar {
     position: fixed;
     top: 15px;
@@ -257,7 +329,13 @@ body {
     }
 }
 
+<<<<<<< HEAD
 
+=======
+/* ==========================
+   Footer
+   ========================== */
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4
 .footer {
     position: absolute;
     bottom: 0;
@@ -268,6 +346,7 @@ body {
     color: white;
     font-weight: 500;
 }
+<<<<<<< HEAD
 .girl-icon {
     width: 45px;
     height: 45px;
@@ -298,3 +377,5 @@ body {
         transform: translateY(0);
     }
 }
+=======
+>>>>>>> 2edcf281c70564860bafdfa31d410b92f83b4bf4

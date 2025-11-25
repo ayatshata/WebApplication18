@@ -1,0 +1,16 @@
+﻿@page
+@model MughtaribatHouse.Pages.Documents.DeleteModel
+@{
+    ViewData["Title"] = "حذف المستند";
+}
+
+<h2 class="mb-4 text-danger">حذف المستند</h2>
+
+<div class="alert alert-warning">
+    هل أنت متأكد من حذف المستند <strong>@Model.Document.Title</strong>؟
+</div>
+
+<form method="post">
+    <button type="submit" class="btn btn-danger">حذف نهائي</button>
+    <a asp-page="Index" class="btn btn-secondary">إلغاء</a>
+</form>

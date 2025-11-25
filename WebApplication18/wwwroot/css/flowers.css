@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.flower {
+    position: fixed;
+    width: 25px;
+    height: 25px;
+    pointer-events: none;
+    z-index: 9999;
+    background-image: url('/images/undraw_profile.svg');
+    background-size: cover;
+    opacity: 0.9;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(800px) rotate(360deg);
+        opacity: 0;
+    }
+}

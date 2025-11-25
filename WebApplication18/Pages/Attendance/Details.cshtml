@@ -1,0 +1,16 @@
+﻿@page "{id:int}"
+@model MughtaribatHouse.Pages.Attendance.DetailsModel
+
+<h2 class="text-center mt-4">📌 تفاصيل السجل</h2>
+
+<div class="card mt-3 shadow">
+    <div class="card-body">
+        <p><strong>المقيمة:</strong> @Model.Attendance.Resident.FullName</p>
+        <p><strong>التاريخ:</strong> @Model.Attendance.Date.ToShortDateString()</p>
+        <p><strong>الدخول:</strong> @Model.Attendance.CheckInTime?.ToString(@"hh\:mm")</p>
+        <p><strong>الخروج:</strong> @Model.Attendance.CheckOutTime?.ToString(@"hh\:mm")</p>
+        <p><strong>ملاحظات:</strong> @Model.Attendance.Notes</p>
+
+        <a asp-page="/Attendance/Index" class="btn btn-secondary mt-3">عودة</a>
+    </div>
+</div>

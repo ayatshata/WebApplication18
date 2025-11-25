@@ -25,7 +25,7 @@
                     @foreach (var notification in Model.Notifications)
                     {
                         <div class="list-group-item list-group-item-action flex-column align-items-start
-                                        @(notification.IsRead ? "" : "list-group-item-primary")">
+                                        @(notification.IsRead ? "" : "list-group-item-new")">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
                                     @if (!notification.IsRead)
@@ -67,6 +67,58 @@
     </div>
 </div>
 
-@section Scripts {
-    <script src="~/js/notifications.js"></script>
-}
+
+<style>
+
+    .list-group-item-new {
+        background-color: #ffe6f0; 
+        border-left: 5px solid #ff66b2;
+    }
+
+ 
+    .flower {
+        position: fixed;
+        width: 25px;
+        height: 25px;
+        pointer-events: none;
+    
+        background-size: cover;
+        opacity: 0.8;
+        animation: fall linear forwards;
+        background-image: url('/images/flower.png');
+    
+</style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // تمييز كمقروء
+        document.querySelectorAll(".mark-read").forEach(button => {
+            button.addEventListener("click", async () => {
+                const id = button.dataset.id;
+                await fetch(`/api/notifications/markread/${id}`, { method: "POST" });
+                button.closest(".list-group-item").classList.remove("list-group-item-new");
+                button.remove();
+                createFlower();
+            });
+        });
+
+  
+        const markAll = document.getElementById("markAllRead");
+        markAll?.addEventListener("click", async () => {
+            await fetch(`/api/notifications/markallread`, { method: "POST" });
+            document.querySelectorAll(".list-group-item-new").forEach(el => el.classList.remove("list-group-item-new"));
+            for(let i=0;i<10;i++){ createFlower(); }
+        });
+
+    
+        function createFlower() {
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.style.left = Math.random() * window.innerWidth + "px";
+            flower.style.animationDuration = (3 + Math.random() * 2) + "s";
+            document.body.appendChild(flower);
+            setTimeout(() => flower.remove(), 5000);
+        }
+    });
+</script>

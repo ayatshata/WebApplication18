@@ -1,32 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MughtaribatHouse.Data; 
-using MughtaribatHouse.Models; 
+using MughtaribatHouse.Data;
+using MughtaribatHouse.Models;
 
-namespace MughtaribatHouse.Pages.Residents
+namespace MughtaribatHouse.Pages.Notifications
 {
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-
-        [BindProperty]
-        public Resident Resident { get; set; }
 
         public CreateModel(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public void OnGet()
-        {
-        }
+        [BindProperty]
+        public Notification Notification { get; set; }
+
+        public IActionResult OnGet() => Page();
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
                 return Page();
 
-            _context.Residents.Add(Resident);
+            Notification.CreatedAt = DateTime.UtcNow;
+            _context.Notifications.Add(Notification);
             await _context.SaveChangesAsync();
             return RedirectToPage("Index");
         }

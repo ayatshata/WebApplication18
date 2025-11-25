@@ -1,0 +1,37 @@
+﻿@page
+@model MughtaribatHouse.Pages.Reviews.IndexModel
+@{
+    ViewData["Title"] = "المراجعات";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<a asp-page="Create" class="btn btn-primary">إضافة مراجعة جديدة</a>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>البريد الإلكتروني</th>
+            <th>التقييم</th>
+            <th>تعليقات</th>
+            <th>إجراءات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Reviews)
+        {
+            <tr>
+                <td>@item.ReviewerName</td>
+                <td>@item.ReviewerEmail</td>
+                <td>@item.Rating</td>
+                <td>@item.Comment</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.Id">تعديل</a> |
+                    <a asp-page="Details" asp-route-id="@item.Id">عرض</a> |
+                    <a asp-page="Delete" asp-route-id="@item.Id">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

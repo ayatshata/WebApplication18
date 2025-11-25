@@ -1,0 +1,36 @@
+﻿@page "{id:int}"
+@model MughtaribatHouse.Pages.Attendance.EditModel
+
+<h2 class="text-center mt-4">✏ تعديل سجل الحضور</h2>
+
+<form method="post" class="mt-3">
+    <input type="hidden" asp-for="Input.Id" />
+
+    <div class="mb-3">
+        <label class="form-label">المقيمة</label>
+        <select asp-for="Input.ResidentId" asp-items="Model.ResidentsSelectList" class="form-select"></select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">التاريخ</label>
+        <input type="date" asp-for="Input.Date" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label>الدخول</label>
+        <input asp-for="CheckInTimeString" type="time" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label>الخروج</label>
+        <input asp-for="CheckOutTimeString" type="time" class="form-control" />
+    </div>
+
+    <div class="mb-2">
+        <label>ملاحظات</label>
+        <input asp-for="Input.Notes" class="form-control" />
+    </div>
+
+    <button type="submit" class="btn btn-success mt-3">حفظ التعديلات</button>
+    <a asp-page="/Attendance/Index" class="btn btn-secondary mt-3">عودة</a>
+</form>
